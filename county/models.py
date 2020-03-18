@@ -20,16 +20,9 @@ def add_city(zip_code, name, city_size, county):
 class County(models.Model):
     name = models.CharField(max_length=100)
     fips_code = models.IntegerField()
-
-    # TODO: turn into JSON Fields
     confirmed = models.CharField(default="[]", max_length=3600)
-    confirmed_change = models.IntegerField()
-    
     deaths = models.CharField(default="[]", max_length=3600)
-    deaths_change = models.IntegerField()
-
     state_county_ranking = models.CharField(default="[]", max_length=3600)
-    health_agency_data = models.CharField(default="", max_length=100)
     state = models.ForeignKey('State', on_delete=models.CASCADE)
 
     def __str__(self):
@@ -54,7 +47,6 @@ class County(models.Model):
         return json.loads(County.objects.filter(id=self.id)[0].state_county_ranking)
 
 
-
 def add_county(state, name, fips_code, confirmed, confirmed_change, deaths, deaths_change, county_ranking):
     def helper(initial_list, add):
         initial_list.append(add)
@@ -77,12 +69,8 @@ def add_county(state, name, fips_code, confirmed, confirmed_change, deaths, deat
 
 class State(models.Model):
     name = models.CharField(default="", max_length=100)
-
-    # TODO: turn into JSON Fields
     confirmed = models.CharField(default="[]", max_length=3600)
-    confirmed_change = models.IntegerField()
     deaths = models.CharField(default="[]", max_length=3600)
-    deaths_change = models.IntegerField()
     state_ranking = models.CharField(default="[]", max_length=3600)
 
     def __str__(self):
