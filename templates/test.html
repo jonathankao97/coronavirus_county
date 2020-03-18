@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <script src="{% static 'js/ajax_search.js' %}"></script>
+    <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+</head>
+<body>
+<h3>Search</h3>
+{% csrf_token %}
+<input type="text" id="search" name="search"/>
+<ul id="search-results">
+
+</ul>
+  <script>
+    $("#search").keyup(function() {
+        $.ajax({
+            type: "POST",
+            url: "/county/search/",
+            data: {
+                'search_text': $('#search').val(),
+                'csrfmiddlewaretoken': $("input[name=csrfmiddlewaretoken]").val(),
+            },
+            success: searchSuccess,
+            dataType: 'html'
+        });
+    });
+
+    function searchSuccess(data, textStatus, jqXHR){
+    $('#search-results').html(data);
+    }
+  </script>
+</body>
+</html>
