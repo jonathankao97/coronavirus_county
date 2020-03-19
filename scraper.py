@@ -5,6 +5,7 @@ import re
 import os
 import django
 import json
+import os
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'coronavirus_county_stats.settings')
 django.setup()
@@ -47,7 +48,13 @@ def parse_state(counter, state_info):
 
 
 def sync_data():
-    browser = webdriver.Chrome('/Users/jkao97/downloads/chromedriver')
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+    chrome_options.add_argument("--no-sandbox")
+
+    browser = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
     browser.get('https://coronavirus.1point3acres.com/en')
 
     sleep(3)
