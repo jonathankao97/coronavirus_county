@@ -67,3 +67,5 @@ def sync_data():
         counties_list = state.find('div', 'jsx-1168542486 counties')
         for index, county in enumerate(counties_list.find_all('div', 'jsx-1168542486 row')):
             parse_county(state_object, index, county)  # add all counties/cities
+
+sync_data()
