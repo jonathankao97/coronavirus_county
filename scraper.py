@@ -57,22 +57,24 @@ def sync_data():
     browser = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
     browser.get('https://coronavirus.1point3acres.com/en')
 
-    sleep(3)
-    counter = 0
-    for state in browser.find_elements_by_xpath("//div[(@class = 'jsx-1168542486')]"):
-        if state.get_attribute("class") == 'jsx-1168542486':
-            try:
-                state.click()
-            except:
-                browser.execute_script('scrollBy(0, 250)')
-                state.click()
-    soup = BeautifulSoup(browser.page_source, "lxml")
-    for index, state in enumerate(soup.find_all(lambda tag: tag.name == 'div' and
-                                       tag.get('class') == ['jsx-1168542486'])):
-        state_info = state.find('div', 'jsx-1168542486 stat row expand').find_all('span', 'jsx-1168542486')
-        state_object = parse_state(index, state_info)  # add state
-        counties_list = state.find('div', 'jsx-1168542486 counties')
-        for index, county in enumerate(counties_list.find_all('div', 'jsx-1168542486 row')):
-            parse_county(state_object, index, county)  # add all counties/cities
+    print(browser.page_source)
+
+    # sleep(3)
+    # counter = 0
+    # for state in browser.find_elements_by_xpath("//div[(@class = 'jsx-1168542486')]"):
+    #     if state.get_attribute("class") == 'jsx-1168542486':
+    #         try:
+    #             state.click()
+    #         except:
+    #             browser.execute_script('scrollBy(0, 250)')
+    #             state.click()
+    # soup = BeautifulSoup(browser.page_source, "lxml")
+    # for index, state in enumerate(soup.find_all(lambda tag: tag.name == 'div' and
+    #                                    tag.get('class') == ['jsx-1168542486'])):
+    #     state_info = state.find('div', 'jsx-1168542486 stat row expand').find_all('span', 'jsx-1168542486')
+    #     state_object = parse_state(index, state_info)  # add state
+    #     counties_list = state.find('div', 'jsx-1168542486 counties')
+    #     for index, county in enumerate(counties_list.find_all('div', 'jsx-1168542486 row')):
+    #         parse_county(state_object, index, county)  # add all counties/cities
 
 sync_data()
