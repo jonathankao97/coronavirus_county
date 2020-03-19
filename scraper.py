@@ -63,12 +63,13 @@ def sync_data():
     counter = 0
     for state in browser.find_elements_by_xpath("//div[(@class = 'jsx-1168542486')]"):
         if state.get_attribute("class") == 'jsx-1168542486':
+            counter = 0
             try:
                 print("trying")
                 state.click()
-
             except:
-                print("failing")
+                print("failing", counter)
+                counter += 1
                 browser.execute_script('scrollBy(0, 100)')
                 state.click()
     soup = BeautifulSoup(browser.page_source, "lxml")
