@@ -1,0 +1,1 @@
+web: gunicorn coronavirus_county_stats.wsgi
