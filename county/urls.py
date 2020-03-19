@@ -1,8 +1,8 @@
-from django.conf.urls import url
-from django.contrib import admin
+from django.urls import path
 from county import views
 
 urlpatterns = [
-    url('test/', views.test, name='test'),
-    url('search/', views.search, name='search'),
+    path('test/', views.test, name='test'),
+    path('search/', views.search, name='search'),
+    path('<int:county_id>/', views.data, name='data')
 ]

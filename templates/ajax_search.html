@@ -1,3 +1,21 @@
-{% for county in counties %}
-    <li><p>{{ county.name }} from {{ county.state }}</li>
+<thead>
+</thead>
+<tbody>
+{% for county in queries %}
+    <tr class='clickable-row' data-href="/county/{{ county.id }}/">
+        <td>
+            <h5 class="medium text-success align-items-center"> {{ county.name }}
+            <span class="compressed small float-right text-warning">{{ county.state_initials }}</span>
+            </h5>
+            <h4 class="small" style="line-height:2px;">(With {{ county.note }})</h4>
+        </td>
+    </tr>
 {% endfor %}
+</tbody>
+<script>
+    jQuery(document).ready(function($) {
+    $(".clickable-row").click(function() {
+        window.location = $(this).data("href");
+    });
+});
+</script>

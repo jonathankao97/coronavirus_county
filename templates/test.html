@@ -1,18 +1,46 @@
-<!DOCTYPE html>
+{% extends 'base.html' %}
 {% load static %}
-<html lang="en">
-<head>
-    <script src="{% static 'js/ajax_search.js' %}"></script>
-    <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
-</head>
-<body>
-<h3>Search</h3>
+{% block content %}
 {% csrf_token %}
-<input type="text" id="search" name="search"/>
-<ul id="search-results">
-
-</ul>
-  <script>
+<script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+<div class="container-fluid h-50">
+    <div class="row align-items-center h-75 mb-0">
+        <div class="col-xl-8 mx-auto">
+            <br><br><br>
+        <div align="center">
+            <img width="400" height="300" src="{% static 'logo.svg' %}" alt="virus">
+        </div>
+        </div>
+    </div>
+    <div class="row mb-0">
+        <div class="col-xl-8 mx-auto">
+            <div class="card mb-0">
+                <div class="card-body py-2">
+                    <div class="input-group no-border">
+                        <input autocomplete="off" spellcheck="false" autocapitalize="off" type="text"
+                               class="form-control"
+                               id="search" name="search" placeholder="City, County, Zip ..."/>
+                        <p>&ensp;</p>
+                        <button type="submit" class="btn btn-default btn-round btn-just-icon">
+                            <i class="material-icons">search</i>
+                            <div class="ripple-container"></div>
+                        </button>
+                    </div>
+                </div>
+                <div class="card m-0">
+                    <div class="card-body py-0">
+                        <table class="table table-hover" id="search-results">
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div align="center">
+                <h3>COVID19 - What You Deserve to Know</h3>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
     $("#search").keyup(function() {
         $.ajax({
             type: "POST",
@@ -29,6 +57,5 @@
     function searchSuccess(data, textStatus, jqXHR){
     $('#search-results').html(data);
     }
-  </script>
-</body>
-</html>
+</script>
+{% endblock %}
