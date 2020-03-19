@@ -32,7 +32,7 @@ ALLOWED_HOSTS = [
     '0.0.0.0',
     'localhost',
     '192.168.0.107',
-    'clearcov19.herokuapp.com/',
+    'clearcov19.herokuapp.com',
 ]
 
 
