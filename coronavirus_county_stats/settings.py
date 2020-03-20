@@ -11,7 +11,8 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
-
+import django_heroku
+from decouple import config
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -22,15 +23,17 @@ TEMPLATE_PATH = os.path.join(BASE_DIR, 'templates')
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '_i_rc8aii3-yhmw8@3wh8x&*d2oen%6ladlmk-po=+y*zd8tj^'
-
+# SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = "_i_rc8aii3-yhmw8@3wh8x&*d2oen%6123dlmk-po=+y*zd8tj^"
 # SECURITY WARNING: don't run with debug turned on in production!
+# DEBUG = os.environ.get('DEBUG')
 DEBUG = True
 
 ALLOWED_HOSTS = [
     '0.0.0.0',
     'localhost',
-    '192.168.0.107'
+    '192.168.0.107',
+    'clearcov19.herokuapp.com',
 ]
 
 
@@ -43,8 +46,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # 'django_celery_results',
 
-    'county'
+    'county',
 ]
 
 MIDDLEWARE = [
@@ -131,6 +135,17 @@ USE_TZ = True
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
+
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATIC_URL = '/static/'
+
+# Celery application definition
+BROKER_URL = config('REDIS_URL')
+CELERY_RESULT_BACKEND = config('REDIS_URL')
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+
+django_heroku.settings(locals())
+

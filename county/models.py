@@ -47,18 +47,17 @@ class County(models.Model):
         return json.loads(County.objects.filter(id=self.id)[0].state_county_ranking)
 
 
-def add_county(state, name, fips_code, confirmed, confirmed_change, deaths, deaths_change, county_ranking):
+def add_county(state, name, fips_code, confirmed, deaths, county_ranking):
     def helper(initial_list, add):
         initial_list.append(add)
         return initial_list
 
     if County.objects.filter(name=name).count() == 0:
-        county_object = County(name=name, fips_code=fips_code, confirmed_change=confirmed_change, deaths_change=deaths_change, state=state)
+        county_object = County(name=name, fips_code=fips_code)
+        county_object.state = state
         county_object.save()
     else:
         county_object = County.objects.filter(name=name)[0]
-        county_object.confirmed_change = confirmed_change
-        county_object.deaths_change = deaths_change
         county_object.save()
 
     county_object.set_confirmed(helper(county_object.get_confirmed(), confirmed))
@@ -95,28 +94,19 @@ class State(models.Model):
         return json.loads(State.objects.filter(id=self.id)[0].state_ranking)
 
 
-def add_state(name, confirmed, confirmed_change, deaths, deaths_change, state_ranking):
+def add_state(name, confirmed, deaths, state_ranking):
 
     def helper(initial_list, add):
         initial_list.append(add)
         return initial_list
 
     if State.objects.filter(name=name).count() == 0:
-        state_object = State(name=name, confirmed_change=confirmed_change, deaths_change=deaths_change)
+        state_object = State(name=name)
         state_object.save()
     else:
         state_object = State.objects.filter(name=name)[0]
-        state_object.confirmed_change = confirmed_change
-        state_object.deaths_change = deaths_change
         state_object.save()
     state_object.set_confirmed(helper(state_object.get_confirmed(), confirmed))
     state_object.set_deaths(helper(state_object.get_deaths(), deaths))
     state_object.set_state_ranking(helper(state_object.get_state_ranking(), state_ranking))
     return state_object
-
-
-
-
-
-
-
