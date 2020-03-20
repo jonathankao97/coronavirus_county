@@ -10,8 +10,12 @@ class CityAdmin(admin.ModelAdmin):
     search_fields = ['name', ]
 
 
+class CountyAdmin(admin.ModelAdmin):
+    search_fields = ['name', ]
+
+
 admin.site.register(City, CityAdmin)
-admin.site.register(County)
+admin.site.register(County, CountyAdmin)
 admin.site.register(State)
 
 

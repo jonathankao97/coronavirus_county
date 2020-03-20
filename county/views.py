@@ -1,6 +1,7 @@
 from django.shortcuts import render
-
 from county.models import City, County
+from django.utils import timezone
+from datetime import timedelta
 
 us_state_abbrev = {
     'Alabama': 'AL',
@@ -38,7 +39,7 @@ us_state_abbrev = {
     'New York': 'NY',
     'North Carolina': 'NC',
     'North Dakota': 'ND',
-    'Northern Mariana Islands':'MP',
+    'Northern Mariana Islands': 'MP',
     'Ohio': 'OH',
     'Oklahoma': 'OK',
     'Oregon': 'OR',
@@ -62,11 +63,36 @@ us_state_abbrev = {
 
 
 def test(request):
+
     return render(request, 'test.html')
 
 
 def data(request, county_id):
-    return render(request, 'county_data.html')
+    county = County.objects.get(id=county_id)
+    confirmed = county.get_confirmed()
+    confirmed_delta = confirmed[-1] - confirmed[-2]
+    deaths = county.get_deaths()
+    deaths_delta = deaths[-1] - deaths[-2]
+
+    context = {
+        'confirmed': confirmed,
+        'confirmed_delta': confirmed_delta,
+        'confirmed_increase': int(float(confirmed_delta * 100) / confirmed[-2]) if confirmed[-2] != 0 else 0,
+        'deaths': deaths,
+        'deaths_delta': deaths_delta,
+        'death_increase': int(float(confirmed_delta * 100) / confirmed[-2]) if deaths[-2] != 0 else 0,
+        'county_rank': county.state_county_ranking,
+        'x_axis': [],
+    }
+
+    now = timezone.localtime(timezone.now())
+    for i in range(0, min(len(confirmed), 14)):
+        context['x_axis'].append(now.strftime('%-m/%-d'))
+        now -= timedelta(1)
+    context['x_axis'].reverse()
+
+    print(context)
+    return render(request, 'county_data.html', context)
 
 
 def search(request):
@@ -76,9 +102,7 @@ def search(request):
         search_text = ''
 
     counties = set()
-    cities = set()
     county_queries = set()
-    city_queries = set()
 
     if len(search_text) > 2:
         try:
@@ -90,24 +114,13 @@ def search(request):
                 add_county(county_queries, city.county, "zip " + str(city.zip_code))
         except:
             counties = County.objects.filter(name__startswith=search_text)
-            cities = City.objects.filter(name__startswith=search_text).order_by('city_size')
 
     for county in counties:
         if len(counties) == 5:
             break
         add_county(county_queries, county, "county " + county.name)
 
-    for city in cities:
-        if len(counties) == 5:
-            break
-        add_county(city_queries, city.county, "city " + city.name)
-
     queries = list(county_queries)
-    for city_county in city_queries:
-        if len(queries) == 5:
-            break
-        if city_county not in queries:
-            queries.append(city_county)
 
     print(search_text)
     print(queries)
