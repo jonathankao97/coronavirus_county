@@ -20,9 +20,13 @@ app.conf.beat_schedule = {
 
     'sync_data': {
         'task': 'sync_data',
-        # 'schedule': 10800.0,
         'schedule': crontab(minute=0, hour='*/3'),
         'args': ()
     },
+    'send_emails': {
+        'task': 'send_emails',
+        'schedule': crontab(minute=0, hour='*/1'),
+        'args': (),
+    }
 
 }

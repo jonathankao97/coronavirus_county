@@ -3,6 +3,16 @@ import json
 # Create your models here.
 
 
+class Email(models.Model):
+    name = models.CharField(default="", max_length=100)
+    email = models.CharField(max_length=100)
+    county = models.ForeignKey('County', on_delete=models.CASCADE)
+    is_subscribed = models.BooleanField()
+
+    def __str__(self):
+        return self.email
+
+
 class City(models.Model):
     zip_code = models.IntegerField()
     name = models.CharField(max_length=100, default="")
@@ -52,12 +62,12 @@ def add_county(state, name, fips_code, confirmed, deaths, county_ranking):
         initial_list.append(add)
         return initial_list
 
-    if County.objects.filter(name=name).count() == 0:
+    if County.objects.filter(name=name, fips_code=fips_code).count() == 0:
         county_object = County(name=name, fips_code=fips_code)
         county_object.state = state
         county_object.save()
     else:
-        county_object = County.objects.filter(name=name)[0]
+        county_object = County.objects.filter(name=name, fips_code=fips_code)[0]
         county_object.save()
 
     county_object.set_confirmed(helper(county_object.get_confirmed(), confirmed))
