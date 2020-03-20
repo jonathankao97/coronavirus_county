@@ -146,20 +146,5 @@ CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 
-from celery.schedules import crontab
-
-CELERYBEAT_SCHEDULE = {
-
-    'sync_data': {
-        'task': 'sync_data',
-        # 'schedule': 10800.0,
-        'schedule': crontab(minute=0, hour='*/3'),
-        'args': ()
-    },
-
-}
-
-
-
 django_heroku.settings(locals())
 
