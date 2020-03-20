@@ -22,6 +22,7 @@
     <link href="{% static 'fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
     <link href="{% static 'css/material-dashboard.css' %}" rel="stylesheet"/>
+    <script src="{% static 'js/core/jquery.min.js' %}"></script>
 </head>
 <body class="dark-edition">
 <div class="wrapper">
@@ -85,13 +86,11 @@
         {% endblock %}
     </div>
 </div>
-<script src="{% static 'js/core/jquery.min.js' %}"></script>
 <script src="{% static 'js/core/popper.min.js' %}"></script>
 <script src="{% static 'js/core/bootstrap-material-design.min.js' %}"></script>
 <script src="https://unpkg.com/default-passive-events"></script>
 <script src="{% static 'js/plugins/perfect-scrollbar.jquery.min.js' %}"></script>
 <!-- Place this tag in your head or just before your close body tag. -->
-<script async defer src="https://buttons.github.io/buttons.js' %}"></script>
 <!-- Chartist JS -->
 <script src="{% static 'js/plugins/chartist.min.js' %}"></script>
 <!--  Notifications Plugin    -->
@@ -99,5 +98,11 @@
 <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
 <script src="{% static 'js/chart.js/Chart.min.js' %}"></script>
 <script src="{% static 'js/chart-area-demo.js' %}"></script>
+<script>
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        var id = $(e.target).attr("id") // activated id
+        make_charts(parseInt(id));
+})
+</script>
 </body>
 </html>
