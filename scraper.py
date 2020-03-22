@@ -17,8 +17,8 @@ def parse_county(state, counter, county):
     name = county_info[0].text  # get rid of all weird extra spaces
     if name[-1] == ' ':
         name = name[0:-1]
-    confirmed = county_info[1].text
-    deaths = county_info[3].text
+    confirmed = county_info[1].div.text
+    deaths = county_info[2].div.text
     with open('dict.json', 'r') as file:
         dict = json.loads(file.readline())
 
@@ -34,8 +34,8 @@ def parse_county(state, counter, county):
 
 def parse_state(counter, state_info):
     name = state_info[0].text
-    confirmed = state_info[1].text
-    deaths = state_info[3].text
+    confirmed = state_info[1].div.text
+    deaths = state_info[2].div.text
     return add_state(name=name, confirmed=int(confirmed), deaths=int(deaths), state_ranking=counter+1)
 
 
