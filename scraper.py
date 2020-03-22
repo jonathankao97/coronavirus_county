@@ -17,8 +17,17 @@ def parse_county(state, counter, county):
     name = county_info[0].text  # get rid of all weird extra spaces
     if name[-1] == ' ':
         name = name[0:-1]
-    confirmed = county_info[1].text
-    deaths = county_info[2].text
+    if len(county_info[1].find_all('div')) == 0:
+        confirmed = county_info[1].text
+    else:
+        county_info[1].find_all('div')[0].decompose()
+        confirmed = county_info[1].text
+    if len(county_info[2].find_all('div')) == 0:
+        deaths = county_info[2].text
+    else:
+        county_info[2].find_all('div')[0].decompose()
+        deaths = county_info[2].text
+
     with open('dict.json', 'r') as file:
         dict = json.loads(file.readline())
 
@@ -34,8 +43,17 @@ def parse_county(state, counter, county):
 
 def parse_state(counter, state_info):
     name = state_info[0].text
-    confirmed = state_info[1].text
-    deaths = state_info[2].text
+
+    if len(state_info[1].find_all('div')) == 0:
+        confirmed = state_info[1].text
+    else:
+        state_info[1].find_all('div')[0].decompose()
+        confirmed = state_info[1].text
+    if len(state_info[2].find_all('div')) == 0:
+        deaths = state_info[2].text
+    else:
+        state_info[2].find_all('div')[0].decompose()
+        deaths = state_info[2].text
     return add_state(name=name, confirmed=int(confirmed), deaths=int(deaths), state_ranking=counter+1)
 
 
