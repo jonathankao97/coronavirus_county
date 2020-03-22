@@ -62,6 +62,16 @@ us_state_abbrev = {
     'Wyoming': 'WY',
 }
 
+def state_rankings(request, state_id):
+    # todo: create a table view
+    pass
+
+def county_rankings(request):
+    # todo: create a table view
+    pass
+
+
+
 def unsubscribe(request):
     form = EmailSignUp()
     if request.method == 'POST':
