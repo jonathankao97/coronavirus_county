@@ -15,8 +15,8 @@ Including another URLconf
 """
 from django.urls import path, include
 from django.contrib import admin
-
+from django.shortcuts import render
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('county/', include('county.urls'))
+    path('county/', include('county.urls')),
 ]

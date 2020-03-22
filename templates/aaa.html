@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+<div class="content my-0">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-3 mx-auto">
+                <div class="card py-1">
+                    <h3 class="card-title text-white text-center large"> {{ county.name }} County </h3>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-success card-header-icon">
+                        <div class="card-icon">
+                            <i class="fa fa-check"></i>
+                        </div>
+                        <p class="card-category">Confirmed Cases</p>
+                        <h3 class="card-title text-white">+{{ confirmed_delta }}</h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats small">
+                            <i class="material-icons">update</i>
+                            &ensp;<a href="">Day</a>
+                            &ensp;<a class="text-secondary" href="">Week</a>
+                            &ensp;<a class="text-secondary" href="">Month</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-danger card-header-icon">
+                        <div class="card-icon">
+                            <i class="fas fa-skull-crossbones"></i>
+                        </div>
+                        <p class="card-category">Deceased</p>
+                        <h3 class="card-title text-light">+{{ deaths_delta }}</h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats small">
+                            <i class="material-icons">update</i>
+                            &ensp;<a class="text-secondary" href="">Day</a>
+                            &ensp;<a class="text-secondary" href="">Week</a>
+                            &ensp;<a href="">Month</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-info card-header-icon">
+                        <div class="card-icon">
+                            <i class="fas fa-flag-usa"></i>
+                        </div>
+                        <p class="card-category">{{ state.name }} Severity Rank</p>
+                        <h3 class="card-title text-white">{{ state_rank }}<sup>{{ state_rank_sup }}</sup></h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats small">
+                            <i class="material-icons">flag</i> In the USA
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-warning card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">location_city</i>
+                        </div>
+                        <p class="card-category">County Severity Rank</p>
+                        <h3 class="card-title text-white">{{ county_rank }}<sup>{{ county_rank_sup }}</sup></h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats small">
+                            <i class="material-icons">flag</i> In {{ state.name }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="card pt-2">
+                <ul class="nav nav-tabs" data-tabs="tabs">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#profile" data-toggle="tab" id="7 {{ county.id }}">
+                            <i class="material-icons">bug_report</i> 1 Week
+                            <div class="ripple-container"></div>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#messages" data-toggle="tab" id="14 {{ county.id }}">
+                            <i class="material-icons">code</i> 2 Weeks
+                            <div class="ripple-container"></div>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#settings" data-toggle="tab" id="30 {{ county.id }}">
+                            <i class="material-icons">cloud</i> Month
+                            <div class="ripple-container"></div>
+                        </a>
+                    </li>
+                </ul>
+                <div class="card-body pb-0">
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-12">
+                            <div class="card card-chart">
+                                <div class="card-header card-header-success">
+                                    <canvas id="myAreaChart"></canvas>
+                                </div>
+                                <div class="card-body">
+                                    <h4 class="card-title">Confirmed Cases</h4>
+                                    <p class="card-category">
+                                        <span class="text-success"><i class="fa fa-long-arrow-up"></i>{{ confirmed_increase }}% </span>
+                                        in cases</p>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        <i class="material-icons">access_time</i> updated 2 hours ago
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-12">
+                            <div class="card card-chart">
+                                <div class="card-header card-header-danger">
+                                    <canvas id="myDeathChart"></canvas>
+                                </div>
+                                <div class="card-body">
+                                    <h4 class="card-title">Deceased</h4>
+                                    <p class="card-category">
+                                        <span class="text-danger"><i class="fa fa-long-arrow-up"></i> {{ death_increase }} % </span>
+                                        in deaths</p>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        <i class="material-icons">access_time</i> updated 2 hours ago
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer pt-0">
+                        <div class="stats">
+                            <i class="material-icons text-danger">warning</i>
+                            <a href="#pablo" class="danger-link">Get more info...</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script id="graphs">
+ var confirmed = {{ confirmed }};
+ var deaths = {{ deaths }};
+ var x_axis = {{ x_axis | safe }};
+</script>
+{% endblock %}
