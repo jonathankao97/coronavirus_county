@@ -62,6 +62,10 @@ us_state_abbrev = {
 }
 
 
+def mail(request):
+    return render(request, 'material-design-email-template/material-design-email-template/material-design.html')
+
+
 def test(request):
     return render(request, 'test.html')
 

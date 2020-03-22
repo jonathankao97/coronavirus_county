@@ -18,11 +18,16 @@ def debug_task(self):
 
 app.conf.beat_schedule = {
 
-    'sync_data': {
-        'task': 'sync_data',
-        # 'schedule': 10800.0,
-        'schedule': crontab(minute=0, hour='*/3'),
-        'args': ()
-    },
+    # 'sync_data': {
+    #     'task': 'sync_data',
+    #     'schedule': crontab(minute=0, hour='*/3'),
+    #     'args': ()
+    # },
+    'send_emails': {
+        'task': 'send_emails',
+        # 'schedule': crontab(minute=0, hour='*/1'),
+        'schedule': 60.0,
+        'args': (),
+    }
 
 }
