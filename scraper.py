@@ -25,7 +25,7 @@ def parse_county(state, counter, county):
     if name in dict:
         fips_code = dict.get(name)[0][1]
         county_object = add_county(name=name, fips_code=fips_code,
-                                   confirmed=int(confirmed), deaths=int(deaths), county_ranking=counter, state=state)
+                                   confirmed=int(confirmed), deaths=int(deaths), county_ranking=counter+1, state=state)
         for city in dict.get(name):
             add_city(zip_code=city[1], name=city[2], county=county_object)
     else:
@@ -82,7 +82,7 @@ def sync_data():
         state_info = state.find('div', 'jsx-1168542486 stat row expand').find_all('span', 'jsx-1168542486')
         state_object = parse_state(index, state_info)  # add state
         counties_list = state.find('div', 'jsx-1168542486 counties')
-        for index, county in enumerate(counties_list.find_all('div', 'jsx-1168542486 row')):
-            parse_county(state_object, index, county)  # add all counties/cities
+        for index2, county in enumerate(counties_list.find_all('div', 'jsx-1168542486 row')):
+            parse_county(state_object, index2, county)  # add all counties/cities
 
 sync_data()
