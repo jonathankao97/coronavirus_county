@@ -13,7 +13,7 @@ from county.models import add_city, add_county, add_state
 
 
 def parse_county(state, counter, county):
-    county_info = county.find_all('span', 'jsx-1168542486')
+    county_info = county.find_all('span', 'jsx-314244412')
     name = county_info[0].text  # get rid of all weird extra spaces
     if name[-1] == ' ':
         name = name[0:-1]
@@ -65,8 +65,8 @@ def sync_data():
 
     sleep(3)
     counter = 0
-    for state in browser.find_elements_by_xpath("//div[(@class = 'jsx-1168542486')]"):
-        if state.get_attribute("class") == 'jsx-1168542486':
+    for state in browser.find_elements_by_xpath("//div[(@class = 'jsx-314244412')]"):
+        if state.get_attribute("class") == 'jsx-314244412':
             counter = 0
             try:
                 print("trying")
@@ -78,11 +78,11 @@ def sync_data():
                 state.click()
     soup = BeautifulSoup(browser.page_source, "lxml")
     for index, state in enumerate(soup.find_all(lambda tag: tag.name == 'div' and
-                                       tag.get('class') == ['jsx-1168542486'])):
-        state_info = state.find('div', 'jsx-1168542486 stat row expand').find_all('span', 'jsx-1168542486')
+                                       tag.get('class') == ['jsx-314244412'])):
+        state_info = state.find('div', 'jsx-314244412 stat row expand').find_all('span', 'jsx-314244412')
         state_object = parse_state(index, state_info)  # add state
-        counties_list = state.find('div', 'jsx-1168542486 counties')
-        for index2, county in enumerate(counties_list.find_all('div', 'jsx-1168542486 row')):
+        counties_list = state.find('div', 'jsx-314244412 counties')
+        for index2, county in enumerate(counties_list.find_all('div', 'jsx-314244412 row')):
             parse_county(state_object, index2, county)  # add all counties/cities
 
 sync_data()
