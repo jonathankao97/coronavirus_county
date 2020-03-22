@@ -7,9 +7,9 @@
     <div class="row align-items-center h-75 mb-0">
         <div class="col-xl-8 mx-auto">
             <br><br><br>
-        <div align="center">
-            <img width="400" height="300" src="{% static 'logo.svg' %}" alt="virus">
-        </div>
+            <div align="center">
+                <img width="400" height="300" src="{% static 'logo.svg' %}" alt="virus">
+            </div>
         </div>
     </div>
     <div class="row mb-0">
@@ -19,7 +19,7 @@
                     <div class="input-group no-border">
                         <input autocomplete="off" spellcheck="false" autocapitalize="off" type="text"
                                class="form-control"
-                               id="search" name="search" placeholder="City, County, Zip ..."/>
+                               id="search" name="search" placeholder="County or Zip code"/>
                         <p>&ensp;</p>
                         <button type="submit" class="btn btn-default btn-round btn-just-icon">
                             <i class="material-icons">search</i>
@@ -53,7 +53,6 @@
             dataType: 'html'
         });
     });
-
     function searchSuccess(data, textStatus, jqXHR){
     $('#search-results').html(data);
     }
