@@ -1,10 +1,44 @@
-{% extends 'base.html' %}
-{% block content %}
-<h2>Dynamic Tabs</h2>
-  <ul class="nav nav-tabs">
-    <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
-    <li><a data-toggle="tab" href="#menu1">Menu 1</a></li>
-    <li><a data-toggle="tab" href="#menu2">Menu 2</a></li>
-    <li><a data-toggle="tab" href="#menu3">Menu 3</a></li>
-  </ul>
-{% endblock %}
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+       <style>
+.nav-tabs > li.active > a {
+    color: #17a2b8!important;
+}
+
+    </style>
+</head>
+<body>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<div class="savage">
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a  id="home-tab" data-toggle="tab" href="#home">Home</a>
+    </li>
+    <li class="nav-item active">
+        <a  id="profile-tab" data-toggle="tab" href="#profile"
+           >Profile</a>
+    </li>
+    <li class="nav-item">
+        <a  id="messages-tab" data-toggle="tab" href="#messages"
+           >Messages</a>
+    </li>
+    <li class="nav-item">
+        <a  id="settings-tab" data-toggle="tab" href="#settings"
+           >Settings</a>
+    </li>
+</ul>
+    </div>
+
+<!-- Tab panes -->
+<div class="tab-content">
+    <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">boark</div>
+    <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
+    <div class="tab-pane" id="messages" role="tabpanel" aria-labelledby="messages-tab">...</div>
+    <div class="tab-pane" id="settings" role="tabpanel" aria-labelledby="settings-tab">...</div>
+</div>
+</body>
+</html>

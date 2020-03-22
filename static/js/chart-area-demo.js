@@ -31,7 +31,6 @@ var myOtherLineChart
 function make_charts(slice){
 beg = x_axis.length - Math.min(slice, x_axis.length)
 if (myLineChart){
-    console.log("hi")
     myLineChart.destroy();
     myOtherLineChart.destroy();
     }

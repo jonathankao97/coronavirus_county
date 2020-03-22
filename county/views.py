@@ -74,27 +74,36 @@ def data(request, county_id):
     sups = ["aux", "st", "nd", "rd", "th"]
     county = County.objects.get(id=county_id)
     confirmed = day_array_converter(county.get_confirmed(), 30)
-    confirmed_delta = 0
-    if len(confirmed) > 1:
-        confirmed_delta = confirmed[-1] - confirmed[-2]
+    deltas = [1, 7, 30]
+    confirmed_deltas = []
+    deaths_deltas = []
+    for i in range(0, len(deltas)):
+        delta = deltas[i]
+        if len(confirmed) > delta:
+            confirmed_deltas.append(confirmed[-1] - confirmed[-(1+delta)])
+        else:
+            confirmed_deltas.append("n/a")
     confirmed_increase = 0
     if len(confirmed) >= 2 and confirmed[-2] != 0:
-        confirmed_increase = int(float(confirmed_delta * 100) / confirmed[-2])
+        confirmed_increase = int(float(confirmed_deltas[0] * 100) / confirmed[-2])
     deaths = day_array_converter(county.get_deaths(), 30)
-    deaths_delta = 0
-    if len(deaths) > 1:
-        deaths_delta = deaths[-1] - deaths[-2]
+    for i in range(0, len(deltas)):
+        delta = deltas[i]
+        if len(confirmed) > delta:
+            deaths_deltas.append(deaths[-1] - deaths[-(1 + delta)])
+        else:
+            deaths_deltas.append("n/a")
     deaths_increase = 0
     if len(deaths) >= 2 and deaths[-2] != 0:
-        deaths_increase = int(float(deaths_increase * 100) / deaths[-2])
+        deaths_increase = int(float(deaths_deltas[0] * 100) / deaths[-2])
     county_rank = int(county.get_state_county_ranking()[-1])
     state_rank = int(county.state.get_state_ranking()[-1])
     context = {
         'confirmed': confirmed,
-        'confirmed_delta': confirmed_delta,
+        'confirmed_deltas': confirmed_deltas,
         'confirmed_increase': confirmed_increase,
         'deaths': deaths,
-        'deaths_delta': deaths_delta,
+        'deaths_deltas': deaths_deltas,
         'death_increase': deaths_increase,
         'county_rank': county_rank,
         'county_rank_sup': sups[min(4, county_rank)],
