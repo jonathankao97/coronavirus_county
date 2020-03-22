@@ -31,14 +31,17 @@ def parse_county(state, counter, county):
     with open('dict.json', 'r') as file:
         dict = json.loads(file.readline())
 
-    if name in dict:
-        fips_code = dict.get(name)[0][1]
+    key = name + "," + state.name
+    if key[-1] == " ":
+        key = key[:-1]
+    if key in dict:
+        fips_code = dict.get(key)[0][1]
         county_object = add_county(name=name, fips_code=fips_code,
                                    confirmed=int(confirmed), deaths=int(deaths), county_ranking=counter+1, state=state)
-        for city in dict.get(name):
+        for city in dict.get(key):
             add_city(zip_code=city[1], name=city[2], county=county_object)
     else:
-        print("Not in dict", name)
+        print("Not in dict", key)
 
 
 def parse_state(counter, state_info):
@@ -58,18 +61,18 @@ def parse_state(counter, state_info):
 
 
 def sync_data():
-    chrome_options = webdriver.ChromeOptions()
-    chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-    chrome_options.add_argument("--headless")
-    chrome_options.add_argument("--disable-dev-shm-usage")
-    chrome_options.add_argument("--no-sandbox")
-    # #
-    browser = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
-    browser.get('https://coronavirus.1point3acres.com/en')
-
-    # browser = webdriver.Chrome('/Users/jkao97/downloads/chromedriver')
-    # browser = webdriver.Chrome('/Users/JonKao/downloads/chromedriver')
+    # chrome_options = webdriver.ChromeOptions()
+    # chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+    # chrome_options.add_argument("--headless")
+    # chrome_options.add_argument("--disable-dev-shm-usage")
+    # chrome_options.add_argument("--no-sandbox")
+    # # #
+    # browser = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
     # browser.get('https://coronavirus.1point3acres.com/en')
+
+    browser = webdriver.Chrome('/Users/jkao97/downloads/chromedriver')
+    # browser = webdriver.Chrome('/Users/JonKao/downloads/chromedriver')
+    browser.get('https://coronavirus.1point3acres.com/en')
 
     # print(browser.page_source)
 
