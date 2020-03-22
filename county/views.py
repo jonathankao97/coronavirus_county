@@ -1,7 +1,8 @@
-from django.shortcuts import render
-from county.models import City, County, State
+from django.shortcuts import render, redirect
+from county.models import City, County, State, Email
 from django.utils import timezone
 from datetime import timedelta
+from county.forms import EmailSignUp
 
 us_state_abbrev = {
     'Alabama': 'AL',
@@ -61,6 +62,37 @@ us_state_abbrev = {
     'Wyoming': 'WY',
 }
 
+def unsubscribe(request):
+    form = EmailSignUp()
+    if request.method == 'POST':
+        form = EmailSignUp(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data['email']
+            for email in Email.objects.filter(email=email):
+                email.unsubscribe()
+            return redirect('test')
+    context = {
+        'form': form
+    }
+    return render(request, 'unsubscribe.html', context)
+
+def mail_signup(request, county_id):
+    county = County.objects.filter(id=county_id)[0]
+    if request.method == 'POST':
+        form = EmailSignUp(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data['email']
+            create_email = Email(email=email, county=county, is_subscribed=True)
+            create_email.save()
+            return redirect('data', county_id=county_id)
+    else:
+        form = EmailSignUp()
+
+    context = {
+        'form': form,
+        'county': county,
+    }
+    return render(request, 'mail_signup.html', context)
 
 def mail(request):
     return render(request, 'material-design-email-template/material-design-email-template/material-design.html')

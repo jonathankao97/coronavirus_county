@@ -4,10 +4,13 @@ import json
 
 
 class Email(models.Model):
-    name = models.CharField(default="", max_length=100)
     email = models.CharField(max_length=100)
     county = models.ForeignKey('County', on_delete=models.CASCADE)
     is_subscribed = models.BooleanField()
+
+    def unsubscribe(self):
+        self.is_subscribed = False
+        self.save()
 
     def __str__(self):
         return self.email
@@ -16,15 +19,15 @@ class Email(models.Model):
 class City(models.Model):
     zip_code = models.IntegerField()
     name = models.CharField(max_length=100, default="")
-    city_size = models.IntegerField()
+    # city_size = models.IntegerField()
     county = models.ForeignKey('County', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
 
 
-def add_city(zip_code, name, city_size, county):
-    return City.objects.get_or_create(zip_code=zip_code, name=name, city_size=city_size, county=county)[0]
+def add_city(zip_code, name, county):
+    return City.objects.get_or_create(zip_code=zip_code, name=name, county=county)[0]
 
 
 class County(models.Model):

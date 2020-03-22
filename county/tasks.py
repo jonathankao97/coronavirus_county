@@ -10,12 +10,12 @@ from county.models import Email
 
 # #
 # # We can have either registered task
-# @shared_task(name="sync_data")
-# def sync_data(*args, **kwargs):
-#     print("hello")
-#     sync()
-#     # os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'coronavirus_county_stats.settings')
-#
+@shared_task(name="sync_data")
+def sync_data(*args, **kwargs):
+    print("hello")
+    sync()
+    # os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'coronavirus_county_stats.settings')
+
 
 
 @shared_task(name="send_emails")
@@ -40,6 +40,6 @@ def send_emails(*args, **kwargs):
                                          'confirmed_change': confirmed_change,
                                          'deaths_change': deaths_change})
         plain_message = strip_tags(html_message)
-        send_mail("hello world", plain_message, EMAIL_HOST_USER,
+        send_mail(email.county.name + " Clear Cov-19 Report", plain_message, EMAIL_HOST_USER,
                   [email.email], html_message=html_message)
 

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    {% csrf_token %}
+    <br><br><br>
+    <div class="card-body pb-0">
+        <div class="content text-center">
+            <form method="post">
+                {% csrf_token %}
+                {{form.as_p}}
+                <br>
+                <button type="submit">Unsubscribe Me :(</button>
+            </form>
+        </div>
+    </div>
+
+
+
+
+{% endblock %}

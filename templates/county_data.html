@@ -15,6 +15,7 @@
             <div class="col-xl-3 mx-auto">
                 <div class="card py-1">
                     <h3 class="card-title text-white text-center large"> {{ county.name }} County </h3>
+                    <a href="{% url 'mail_signup' county.id %}" class="text-center large">Join Email List!</a>
                 </div>
             </div>
         </div>
