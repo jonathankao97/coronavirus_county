@@ -133,31 +133,24 @@ def search(request):
     else:
         search_text = ''
 
-    counties = set()
-    county_queries = set()
+    queries = set()
 
     if len(search_text) > 2:
         try:
             zip_code = int(search_text)
             zip_cities = City.objects.filter(zip_code__startswith=zip_code)
             for city in zip_cities:
-                if len(counties) == 5:
-                    break
-                add_county(county_queries, city.county, "zip " + str(city.zip_code))
-        except:
+                add_county(queries, city.county, "zip " + str(city.zip_code))
+        except ValueError:
             counties = County.objects.filter(name__startswith=search_text)
 
-    for county in counties:
-        if len(counties) == 5:
-            break
-        add_county(county_queries, county, "county " + county.name)
-
-    queries = list(county_queries)
+            for county in counties:
+                add_county(queries, county, "county " + county.name)
 
     print(search_text)
-    print(queries)
+    print(list(queries))
 
-    return render(request, 'ajax_search.html', {'queries': queries})
+    return render(request, 'ajax_search.html', {'queries': list(queries)})
 
 
 def add_county(queries, county, note):
