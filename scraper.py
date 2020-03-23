@@ -43,6 +43,9 @@ def parse_county(state, counter, county):
     else:
         print("Not in dict", key)
 
+    del county_object
+    del dict
+
 
 def parse_state(counter, state_info):
     name = state_info[0].text
@@ -97,6 +100,11 @@ def sync_data():
         counties_list = state.find('div', 'jsx-314244412 counties')
         for index2, county in enumerate(counties_list.find_all('div', 'jsx-314244412 row')):
             parse_county(state_object, index2, county)  # add all counties/cities
+
+        del state_object
+        del state_info
+        del counties_list
+
     browser.close()
     browser.quit()
 
