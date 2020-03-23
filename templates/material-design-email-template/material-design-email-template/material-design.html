@@ -163,7 +163,7 @@
     <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#eeeeee">
       <div class="Gmail" style="height: 1px !important; margin-top: -1px !important; max-width: 600px !important; min-width: 600px !important; width: 600px !important;"></div>
       <div style="display: none; max-height: 0px; overflow: hidden;">
-        {{county.name}} Clear Cov-19 report. Stay inside and stay safe!
+          {{county.name}} Clear Cov-19 report. Stay inside and stay safe!
       </div>
       <!-- Insert &zwnj;&nbsp; hack after hidden preview text -->
       <div style="display: none; max-height: 0px; overflow: hidden;">
@@ -235,7 +235,7 @@
                               <!-- START BODY COPY -->
                               <tr>
                                 <td class="td-padding" align="left" style="font-family: 'Roboto Mono', monospace; color: #212121!important; font-size: 24px; line-height: 30px; padding-top: 18px; padding-left: 18px!important; padding-right: 18px!important; padding-bottom: 0px!important; mso-line-height-rule: exactly; mso-padding-alt: 18px 18px 0px 13px;">
-                                  {{ county.name }} county Clear Cov-19 report
+                                    {{ county.name }} county <span style="color: purple;">Clear Cov-19</span> report
                                 </td>
                               </tr>
                               <tr>
@@ -302,34 +302,15 @@
                                       <tbody>
                                         <tr>
                                           <td bgcolor="#ffffff" class="td-padding" align="left" style="font-family: 'Roboto Mono', monospace; color: #212121!important; font-size: 24px; line-height: 30px; padding-top: 18px; padding-left: 18px!important; padding-right: 18px!important; padding-bottom: 0px!important; mso-line-height-rule: exactly; mso-padding-alt: 18px 18px 0px 13px;">
-                                                {{ confirmed }} total confirmed cases
+                                              <span style="color: #25e47a;">{{ confirmed }}</span> total <span style="color: #25e47a;">confirmed </span> cases
                                           </td>
                                         </tr>
                                         <tr>
                                           <td bgcolor="#ffffff" class="td-padding" align="left" style="font-family: 'Roboto Mono', monospace; color: #212121!important; font-size: 16px; line-height: 24px; padding-top: 18px; padding-left: 18px!important; padding-right: 18px!important; padding-bottom: 0px!important; mso-line-height-rule: exactly; mso-padding-alt: 18px 18px 0px 18px;">
-                                                This is {{ confirmed_change }} more than yesterday
+                                                This is <span style="color: #25e47a;">{{ confirmed_change }}</span> more than yesterday
                                           </td>
                                         </tr>
                                         <!-- END BODY COPY -->
-                                        <!-- BUTTON -->
-                                        <tr>
-                                          <td bgcolor="#ffffff" align="left" style="padding: 18px 18px 18px 18px; mso-alt-padding: 18px 18px 18px 18px!important;">
-                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                              <tr>
-                                                <td>
-                                                  <table border="0" cellspacing="0" cellpadding="0">
-                                                    <tr>
-                                                      <td align="left" style="border-radius: 3px;" bgcolor="#fc3f1e">
-                                                        <a class="button raised" href="http://paulgoddarddesign.com/email-marketing" target="_blank" style="font-size: 14px; line-height: 14px; font-weight: 500; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; border-radius: 3px; padding: 10px 25px; border: 1px solid #fc3f1e; display: inline-block;">View</a>
-                                                      </td>
-                                                    </tr>
-                                                  </table>
-                                                </td>
-                                              </tr>
-                                            </table>
-                                          </td>
-                                        </tr>
-                                        <!-- END BUTTON -->
                                       </tbody>
                                     </table>
                                   </td>
@@ -345,34 +326,15 @@
                                       <tbody>
                                         <tr>
                                           <td bgcolor="#ffffff" class="td-padding" align="left" style="font-family: 'Roboto Mono', monospace; color: #212121!important; font-size: 24px; line-height: 30px; padding-top: 18px; padding-left: 18px!important; padding-right: 18px!important; padding-bottom: 0px!important; mso-line-height-rule: exactly; mso-padding-alt: 18px 18px 0px 13px;">
-                                            {{deaths}} confirmed deaths
+                                              <span style="color: #fc3f1e;">{{deaths}}</span> confirmed <span style="color: #fc3f1e;">deaths</span>
                                           </td>
                                         </tr>
                                         <tr>
                                           <td bgcolor="#ffffff" class="td-padding" align="left" style="font-family: 'Roboto Mono', monospace; color: #212121!important; font-size: 16px; line-height: 24px; padding-top: 18px; padding-left: 18px!important; padding-right: 18px!important; padding-bottom: 0px!important; mso-line-height-rule: exactly; mso-padding-alt: 18px 18px 0px 18px;">
-                                            This is {{ deaths_change }} more than yesterday
+                                            This is <span style="color: #fc3f1e;">{{deaths_change}}</span> more than yesterday
                                           </td>
                                         </tr>
                                         <!-- END BODY COPY -->
-                                        <!-- BUTTON -->
-                                        <tr>
-                                          <td bgcolor="#ffffff" align="left" style="padding: 18px 18px 18px 18px; mso-alt-padding: 18px 18px 18px 18px!important;">
-                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                              <tr>
-                                                <td>
-                                                  <table border="0" cellspacing="0" cellpadding="0">
-                                                    <tr>
-                                                      <td align="left" style="border-radius: 3px;" bgcolor="#25e47a">
-                                                        <a class="button raised" href="http://paulgoddarddesign.com/email-marketing" target="_blank" style="font-size: 14px; line-height: 14px; font-weight: 500; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; border-radius: 3px; padding: 10px 25px; border: 1px solid #25e47a; display: inline-block;">View</a>
-                                                      </td>
-                                                    </tr>
-                                                  </table>
-                                                </td>
-                                              </tr>
-                                            </table>
-                                          </td>
-                                        </tr>
-                                        <!-- END BUTTON -->
                                       </tbody>
                                     </table>
                                   </td>
@@ -415,34 +377,15 @@
                                       <tbody>
                                         <tr>
                                           <td bgcolor="#ffffff" class="td-padding" align="left" style="font-family: 'Roboto Mono', monospace; color: #212121!important; font-size: 24px; line-height: 30px; padding-top: 18px; padding-left: 18px!important; padding-right: 18px!important; padding-bottom: 0px!important; mso-line-height-rule: exactly; mso-padding-alt: 18px 18px 0px 13px;">
-                                            {{county.name}} ranked by total cases in {{ county.state.name }}: {{ county_ranking }}
+                                            <span style="color: hotpink;">{{county.name}}</span> ranked by total cases in {{ county.state.name }}: <span style="color: hotpink;">{{county_ranking}}</span>
                                           </td>
                                         </tr>
                                         <tr>
                                           <td bgcolor="#ffffff" class="td-padding" align="left" style="font-family: 'Roboto Mono', monospace; color: #212121!important; font-size: 16px; line-height: 24px; padding-top: 18px; padding-left: 18px!important; padding-right: 18px!important; padding-bottom: 0px!important; mso-line-height-rule: exactly; mso-padding-alt: 18px 18px 0px 18px;">
-                                            {{county.name}} moved up {{ county_ranking_change }} places
+                                            <span style="color: hotpink;">{{county.name}}</span> moved up <span style="color: hotpink;">{{ county_ranking_change }}</span> places
                                           </td>
                                         </tr>
                                         <!-- END BODY COPY -->
-                                        <!-- BUTTON -->
-                                        <tr>
-                                          <td bgcolor="#ffffff" align="left" style="padding: 18px 18px 18px 18px; mso-alt-padding: 18px 18px 18px 18px!important;">
-                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                              <tr>
-                                                <td>
-                                                  <table border="0" cellspacing="0" cellpadding="0">
-                                                    <tr>
-                                                      <td align="left" style="border-radius: 3px;" bgcolor="#fc3f1e">
-                                                        <a class="button raised" href="http://paulgoddarddesign.com/email-marketing" target="_blank" style="font-size: 14px; line-height: 14px; font-weight: 500; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; border-radius: 3px; padding: 10px 25px; border: 1px solid #fc3f1e; display: inline-block;">County Rankings</a>
-                                                      </td>
-                                                    </tr>
-                                                  </table>
-                                                </td>
-                                              </tr>
-                                            </table>
-                                          </td>
-                                        </tr>
-                                        <!-- END BUTTON -->
                                       </tbody>
                                     </table>
                                   </td>
@@ -458,34 +401,15 @@
                                       <tbody>
                                         <tr>
                                           <td bgcolor="#ffffff" class="td-padding" align="left" style="font-family: 'Roboto Mono', monospace; color: #212121!important; font-size: 24px; line-height: 30px; padding-top: 18px; padding-left: 18px!important; padding-right: 18px!important; padding-bottom: 0px!important; mso-line-height-rule: exactly; mso-padding-alt: 18px 18px 0px 13px;">
-                                            {{county.state.name}} ranked by total cases in the U.S.: {{ state_ranking }}
+                                            <span style="color: orange;">{{county.state.name}}</span> ranked by total cases in the U.S.: <span style="color: orange;">{{state_ranking}}</span>
                                           </td>
                                         </tr>
                                         <tr>
                                           <td bgcolor="#ffffff" class="td-padding" align="left" style="font-family: 'Roboto Mono', monospace; color: #212121!important; font-size: 16px; line-height: 24px; padding-top: 18px; padding-left: 18px!important; padding-right: 18px!important; padding-bottom: 0px!important; mso-line-height-rule: exactly; mso-padding-alt: 18px 18px 0px 18px;">
-                                            {{county.state.name}} moved up {{ state_ranking_change }} places
+                                            <span style="color: orange;">{{county.state.name}}</span> moved up <span style="color: orange;">{{state_ranking_change}}</span> places
                                           </td>
                                         </tr>
                                         <!-- END BODY COPY -->
-                                        <!-- BUTTON -->
-                                        <tr>
-                                          <td bgcolor="#ffffff" align="left" style="padding: 18px 18px 18px 18px; mso-alt-padding: 18px 18px 18px 18px!important;">
-                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                              <tr>
-                                                <td>
-                                                  <table border="0" cellspacing="0" cellpadding="0">
-                                                    <tr>
-                                                      <td align="left" style="border-radius: 3px;" bgcolor="#25e47a">
-                                                        <a class="button raised" href="http://paulgoddarddesign.com/email-marketing" target="_blank" style="font-size: 14px; line-height: 14px; font-weight: 500; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; border-radius: 3px; padding: 10px 25px; border: 1px solid #25e47a; display: inline-block;">State Rankings</a>
-                                                      </td>
-                                                    </tr>
-                                                  </table>
-                                                </td>
-                                              </tr>
-                                            </table>
-                                          </td>
-                                        </tr>
-                                        <!-- END BUTTON -->
                                       </tbody>
                                     </table>
                                   </td>

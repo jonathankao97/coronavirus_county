@@ -6,7 +6,5 @@ urlpatterns = [
     path('<int:county_id>/', views.data, name='data'),
     path('subscribe/', views.subscribe, name='signup'),
     path('unsubscribe/', views.unsubscribe, name='unsubscribe'),
-    path('<int:state_id>/rankings/', views.county_rankings, name='county_rankings'),
-    path('us_rankings/', views.state_rankings, name='state_rankings'),
     path('hello/', views.hello),
 ]

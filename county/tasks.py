@@ -3,7 +3,7 @@ from django.utils.html import strip_tags
 from celery import task
 from celery import shared_task
 import os
-# from scraper import sync_data as sync
+from scraper import sync_data as sync
 from django.core.mail import send_mail
 from coronavirus_county_stats.settings import EMAIL_HOST_USER
 from county.models import Email
@@ -35,7 +35,7 @@ def send_emails(*args, **kwargs):
 
         county_ranking_list = email.county.get_state_county_ranking()
         state_ranking_list = email.county.state.get_state_ranking()
-        if len(county_ranking) <= 1:
+        if len(county_ranking_list) <= 1:
             county_ranking_change = county_ranking_list[0]
         else:
             county_ranking_change = county_ranking_list[-1] - county_ranking_list[-2]
