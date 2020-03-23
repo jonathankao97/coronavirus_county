@@ -1,22 +1,9 @@
-{% extends 'base.html' %}
-{% load static %}
-{% block content %}
-
+{% csrf_token %}
+<form method="post">
+    <h3 class="card-title text-white large"> {{ county.name }} County </h3>
+    <p class="card-text text-white">Provide your email for daily updates!</p>
     {% csrf_token %}
-    <div class="card-body pb-0">
-        <div class="content text-center">
-            <form method="post">
-                <h3 class="card-title text-white large"> {{ county.name }} County </h3>
-                <p class="card-text text-white">We have worked very hard to be able to provide this data straight to your email! Sign up below or view an exact preview!</p>
-                {% csrf_token %}
-                {{form.as_p}}
-                <br>
-                <button type="submit">Keep me informed!</button>
-            </form>
-        </div>
-    </div>
-
-
-
-
-{% endblock %}
+    {{form.as_p}}
+    <br>
+    <button type="submit">Keep me informed!</button>
+</form>
