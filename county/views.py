@@ -169,6 +169,19 @@ def data(request, county_id):
     return render(request, 'county_data.html', context)
 
 
+def subscribe(request):
+    county_id = request.POST['county_id']
+    email = request.POST['email']
+    first_name = request.POST['first_name']
+    last_name = request.POST['last_name']
+
+    county = County.objects.get(id=county_id)
+    create_email = Email(email=email, county=county, is_subscribed=True)
+    create_email.save()
+
+    return render(request, 'aux.html')
+
+
 def search(request):
     if request.method == 'POST':
         search_text = request.POST['search_text']

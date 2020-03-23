@@ -78,7 +78,7 @@ myLineChart = new Chart(canvas, {
         ticks: {
           maxTicksLimit: 7,
           fontSize: 13,
-          fontFamily: "Helvetica-light"
+          fontFamily: "Helvetica"
         }
       }],
       yAxes: [{
@@ -162,7 +162,7 @@ myOtherLineChart = new Chart(canvas1, {
         ticks: {
           maxTicksLimit: 7,
           fontSize: 13,
-          fontFamily: "Helvetica-light"
+          fontFamily: "Helvetica"
         }
       }],
       yAxes: [{
