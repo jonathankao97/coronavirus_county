@@ -12,7 +12,7 @@ django.setup()
 from county.models import add_city, add_county, add_state
 
 
-def parse_county(state, counter, county):
+def parse_county(state, counter, county, dict):
     county_info = county.find_all('span', 'jsx-314244412')
     name = county_info[0].text  # get rid of all weird extra spaces
     if name[-1] == ' ':
@@ -28,9 +28,6 @@ def parse_county(state, counter, county):
         county_info[2].find_all('div')[0].decompose()
         deaths = county_info[2].text
 
-    with open('dict.json', 'r') as file:
-        dict = json.loads(file.readline())
-
     key = name + "," + state.name
     if key[-1] == " ":
         key = key[:-1]
@@ -43,7 +40,7 @@ def parse_county(state, counter, county):
         del county_object
     else:
         print("Not in dict", key)
-    del dict
+
 
 
 def parse_state(counter, state_info):
@@ -79,6 +76,10 @@ def sync_data():
     # print(browser.page_source)
 
     sleep(3)
+
+    with open('dict.json', 'r') as file:
+        dict = json.loads(file.readline())
+
     counter = 0
     for state in browser.find_elements_by_xpath("//div[(@class = 'jsx-314244412')]"):
         if state.get_attribute("class") == 'jsx-314244412':
@@ -98,7 +99,7 @@ def sync_data():
         state_object = parse_state(index, state_info)  # add state
         counties_list = state.find('div', 'jsx-314244412 counties')
         for index2, county in enumerate(counties_list.find_all('div', 'jsx-314244412 row')):
-            parse_county(state_object, index2, county)  # add all counties/cities
+            parse_county(state_object, index2, county, dict)  # add all counties/cities
 
         del state_object
         del state_info
