@@ -40,10 +40,9 @@ def parse_county(state, counter, county):
                                    confirmed=int(confirmed), deaths=int(deaths), county_ranking=counter+1, state=state)
         for city in dict.get(key):
             add_city(zip_code=city[1], name=city[2], county=county_object)
+        del county_object
     else:
         print("Not in dict", key)
-
-    del county_object
     del dict
 
 
