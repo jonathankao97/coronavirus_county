@@ -71,7 +71,7 @@ def sync_data():
     browser.get('https://coronavirus.1point3acres.com/en')
 
     # browser = webdriver.Chrome('/Users/jkao97/downloads/chromedriver')
-    # # browser = webdriver.Chrome('/Users/JonKao/downloads/chromedriver')
+    # # # browser = webdriver.Chrome('/Users/JonKao/downloads/chromedriver')
     # browser.get('https://coronavirus.1point3acres.com/en')
 
     # print(browser.page_source)
