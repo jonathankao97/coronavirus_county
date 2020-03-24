@@ -91,7 +91,7 @@ def next_date(month, day):
         if day == 29:
             month = 3
             day = 1
-        else: 
+        else:
             day += 1
     else:
         day += 1
@@ -120,6 +120,7 @@ for item in dict:
 for county in County.objects.all():
     county.set_deaths([])
     county.set_confirmed([])
+    county.set_state_county_ranking([])
 
 
 length_counter = 0

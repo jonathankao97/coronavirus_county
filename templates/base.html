@@ -12,6 +12,13 @@
 
 
 
+
+
+
+
+
+
+
     </style>
     <meta charset="utf-8"/>
     <link rel="apple-touch-icon" sizes="76x76" href="{% static 'img/apple-icon.png' %}">
@@ -41,8 +48,7 @@
 </head>
 <body class="dark-edition">
 <div class="wrapper">
-    <div class="sidebar d-lg-none" data-color="purple" data-background-color="black"
-         data-image="{% static 'assets/img/sidebar-2.jpg' %}">
+    <div class="sidebar d-lg-none" data-color="purple" data-background-color="black">
         <!--
           Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
 
@@ -56,7 +62,7 @@
     <div class="main-panel h-100 w-100">
         <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top " id="navigation-example">
             <div class="container-fluid">
-                <div class="navbar-wrapper">
+                <div class="navbar-wrapper mt-0 pt-0">
                     <a class="navbar-brand" href={% url 'test' %}>
                     <img width="40" height="40" src="{% static 'biology.png' %}" alt="virus">
                     &nbsp;Clear Cov-19</a>
@@ -70,6 +76,21 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-end">
                     <ul class="navbar-nav">
+                        <li class="nav-item dropdown open">
+
+                            <div class="input-group no-border">
+                                <input autocomplete="off" spellcheck="false" autocapitalize="off" type="text"
+                                       class="form-control"
+                                       id="top_search" name="search" placeholder="County or Zip code"/>
+                                <a class="nav-link" href="javscript:void(0)" id="navbarDropdownMenuLink"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="material-icons">search</i>
+                                    <div class="ripple-container"></div>
+                                </a>
+                            </div>
+                            <div class="dropdown-menu dropdown-menu-right" id="search-results1" aria-labelledby="navbarDropdownMenuLink">
+                            </div>
+                        </li>
                         <li class="nav-item">
                             <a type="submit" data-toggle="modal" class="nav-link" href="#about_clear_cov">
                                 <i class="material-icons">info_outline</i>
@@ -142,7 +163,7 @@
                                             <div class="modal-body pt-2 my-0" style="border:none;">
                                                 <div class="card-body">
                                                     <div class="row">
-                                                        <img class="mx-auto" style="border-radius: 8px;" src="static/jonathanvictor.png" alt="Jonathan Kao" height="300" width="450">
+                                                        <img class="mx-auto" style="border-radius: 8px;" src="/static/jonathanvictor.png" alt="Jonathan Kao" height="300" width="450">
 {#                                                        <img style="border-radius: 8px;" src="static/victor.jpg" alt="Victor Lin" height="100" width="100">#}
 
 {#                                                        <h7 class="text-white mx-auto"></h7>#}
@@ -319,6 +340,28 @@
 
 
 
+
+
+
+
+</script>
+
+<script>
+    $("#top_search").keyup(function() {
+        $.ajax({
+            type: "POST",
+            url: "/county/search/",
+            data: {
+                'search_text': $('#top_search').val(),
+                'csrfmiddlewaretoken': $("input[name=csrfmiddlewaretoken]").val(),
+            },
+            success: searchSuccess,
+            dataType: 'html'
+        });
+    });
+    function searchSuccess(data, textStatus, jqXHR){
+    $('#search-results1').html(data);
+    }
 </script>
 </body>
 </html>

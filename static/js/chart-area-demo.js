@@ -35,7 +35,9 @@ if (myLineChart){
     myOtherLineChart.destroy();
     }
 var canvas = document.getElementById("myAreaChart");
+canvas.height=200;
 var canvas1 = document.getElementById("myDeathChart");
+canvas1.height=200;
 myLineChart = new Chart(canvas, {
   type: 'line',
   data: {
@@ -86,6 +88,7 @@ myLineChart = new Chart(canvas, {
           maxTicksLimit: 5,
           padding: 20,
           min: 0,
+          precision: 0,
           // Include a dollar sign in the ticks
         },
         gridLines: {
@@ -169,7 +172,8 @@ myOtherLineChart = new Chart(canvas1, {
         ticks: {
           maxTicksLimit: 5,
           padding: 20,
-          min: 0,
+          min:0,
+          precision: 0,
           // Include a dollar sign in the ticks
         },
         gridLines: {

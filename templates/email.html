@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css"
+          href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons"/>
+    <link href="{% static 'fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <link href="{% static 'css/material-dashboard.css' %}" rel="stylesheet"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<body class="dark-edition">
+<div class="row">
+<div class="col-10 mx-auto">
+    <div class="card py-1 mx-0">
+        <h3 class="card-title text-white text-center large pr-5 pl-5">{{ county.name }} Santa Clara County </h3>
+    </div>
+</div>
+</div>
+<div class="row mt-0">
+<div class="col-10 mx-auto">
+    <h5 class=" text-primary text-center pr-5 pl-5">Your <strong>March 23, 2020</strong> COVID19 update</h5>
+    <hr style="2px solid white;">
+</div>
+</div>
+<div class="row mx-2 p-0">
+    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+        <div class="card card-stats">
+            <div class="card-header card-header-success card-header-icon">
+                <div class="card-icon">
+                    <i class="fa fa-check"></i>
+                </div>
+                <p class="card-category">Confirmed Cases</p>
+                <h3 class="card-title text-white">10</h3>
+            </div>
+            <div class="card-footer">
+                <div class="container text-center">
+                    <div class="medium">
+                        <span class="text-success font-weight-light">
+                             + {{confirmed_change}} cases <span class="mr-2"></span> | <span class="mr-2"></span> (100%) <i
+                                class="fa fa-long-arrow-up"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+        <div class="card card-stats">
+            <div class="card-header card-header-danger card-header-icon">
+                <div class="card-icon">
+                    <i class="fas fa-skull-crossbones"></i>
+                </div>
+                <p class="card-category">Deceased</p>
+                <h3 class="card-title text-white">5</h3>
+            </div>
+            <div class="card-footer">
+                <div class="container text-center">
+                    <div class="medium">
+                        <span class="text-danger font-weight-light">
+                             + {{deaths_change}} deaths <span class="mr-2"></span> | <span class="mr-2"></span> (20%) <i
+                                class="fa fa-long-arrow-up"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row mx-2 p-0">
+    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+        <div class="card card-stats">
+            <div class="card-header card-header-info card-header-icon">
+                <div class="card-icon">
+                    <i class="fas fa-flag-usa"></i>
+                </div>
+                <p class="card-category">State Severity Rank</p>
+                <h2 class="card-title text-white">{{ state_ranking }}<sup>{{ state_rank_sup }}</sup></h2>
+            </div>
+            <div class="card-footer">
+                <div class="stats small">
+                    <i class="material-icons">flag</i> In the USA
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+        <div class="card card-stats">
+            <div class="card-header card-header-warning card-header-icon">
+                <div class="card-icon">
+                    <i class="material-icons">location_city</i>
+                </div>
+                <p class="card-category">County Severity Rank</p>
+                <h2 class="card-title text-white">{{ county_ranking }}<sup>{{ county_rank_sup }}</sup></h2>
+            </div>
+            <div class="card-footer">
+                <div class="stats small">
+                    <i class="material-icons">flag</i> In {{ county.state }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row ml-2 mr-1">
+    <div class="col-6">
+          <button type="submit" class="btn btn-block btn-info pull-right py-2" style="font-size:15px;line-height:.5;" data-toggle="modal"
+                           href="#myModal">Buy us a coffee! <img width="30" height="35" src="{% static 'kofi.gif' %}" alt="kofi" class="ml-2 pb-1"></button>
+    </div>
+    <div class="col-6">
+          <button type="submit" class="btn btn-block btn-primary pull-right py-2" style="font-size:15px;" data-toggle="modal"
+                  href="#myModal">Unsubscribe <i class="fas fa-frown-open fa-lg ml-2"></i><img width="0" height="35"></button>
+    </div>
+</div>
+<script src="{% static 'js/material-dashboard.min.js' %}"></script>
+<script src="{% static 'js/core/popper.min.js' %}"></script>
+<script src="{% static 'js/core/bootstrap-material-design.min.js' %}"></script>
+<script src="https://unpkg.com/default-passive-events"></script>
+<script src="{% static 'js/plugins/perfect-scrollbar.jquery.min.js' %}"></script>
+<!-- Place this tag in your head or just before your close body tag. -->
+<!-- Chartist JS -->
+<script src="{% static 'js/plugins/chartist.min.js' %}"></script>
+<!--  Notifications Plugin    -->
+<!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+<script src="{% static 'js/chart.js/Chart.min.js' %}"></script>
+<script src="{% static 'js/chart-area-demo.js' %}"></script>
+</body>
+</html>
