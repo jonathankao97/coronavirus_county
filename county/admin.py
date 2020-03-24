@@ -11,7 +11,7 @@ class CityAdmin(admin.ModelAdmin):
 
 
 class CountyAdmin(admin.ModelAdmin):
-    search_fields = ['name', ]
+    search_fields = ['name', 'fips_code']
 
 
 admin.site.register(City, CityAdmin)

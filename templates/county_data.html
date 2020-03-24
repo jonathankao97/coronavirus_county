@@ -23,15 +23,15 @@ body.modal-open[style] {
 <div class="content my-0">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-2 mt-2"></div>
-            <div class="col-md-auto mx-auto mt-2">
-                <div class="card py-1">
+            <div class="col-xl-4 col-lg-3 col-md-0 mt-3"></div>
+            <div class="col-xl-4 col-lg-6 col-md-6 col col mt-2">
+                <div class="card py-1 mx-0">
                     <h3 class="card-title text-white text-center large pr-5 pl-5">{{ county.name }} County </h3>
                 </div>
             </div>
-            <div class="col-xl-2 col-lg-2 col-md-6 col-sm-6 ">
-                <div class="card-transparent mt-3 p-0">
-                    <div class="card-body pb-0 px-0">
+            <div class="col-xl-4 col-lg-3 col-md-6 col-sm-6">
+                <div class="card-transparent mt-3">
+                    <div class="card-body px-0">
                         <button type="submit" class="btn btn-primary pull-right" data-toggle="modal"
                            href="#myModal">Receive Updates</button>
                     </div>
@@ -77,7 +77,7 @@ body.modal-open[style] {
                                             </div>
                                         </div>
                                     </div>
-                                    <h5 class="modal-title text-secondary text-center small pt-4">Provide your email for
+                                    <h5 class="modal-title text-secondary text-center small mt-2">Provide your email for
                                         daily updates!</h5>
                                 </div>
                             </div>
@@ -101,13 +101,13 @@ body.modal-open[style] {
                     <p class="card-category">Confirmed Cases</p>
                     <div class="tab-content">
                         <div class="tab-pane active" id="c_day">
-                            <h3 class="card-title text-light">+{{ confirmed_deltas.0 }}</h3>
+                            <h3 class="card-title text-light"><strong>{{ current_confirmed }}</strong> <sup class="text-success">(+{{ confirmed_deltas.0 }})</sup></h3>
                         </div>
                         <div class="tab-pane" id="c_week">
-                            <h3 class="card-title text-light">+{{ confirmed_deltas.1 }}</h3>
+                            <h3 class="card-title text-light"><strong>{{ current_confirmed }}</strong> <sup class="text-success"> (+{{ confirmed_deltas.1 }}<sup></sup>)</sup></h3>
                         </div>
                         <div class="tab-pane" id="c_month">
-                            <h3 class="card-title text-light">+{{ confirmed_deltas.2 }}</h3>
+                            <h3 class="card-title text-light"><strong>{{ current_confirmed }}</strong> <sup class="text-success"> (+{{ confirmed_deltas.2 }})</sup></h3>
                         </div>
                     </div>
                 </div>
@@ -136,21 +136,21 @@ body.modal-open[style] {
                     <p class="card-category">Deceased</p>
                     <div class="tab-content">
                         <div class="tab-pane active" id="d_day">
-                            <h3 class="card-title text-light">+{{ deaths_deltas.0 }}</h3>
+                            <h3 class="card-title text-light"><strong>{{ current_deaths }}</strong> <sup class="text-danger">(+{{ deaths_deltas.0 }})</sup></h3>
                         </div>
                         <div class="tab-pane" id="d_week">
-                            <h3 class="card-title text-light">+{{ deaths_deltas.1 }}</h3>
+                            <h3 class="card-title text-light"><strong>{{ current_deaths }}</strong> <sup class="text-danger">(+{{ deaths_deltas.1 }})</sup></h3>
                         </div>
                         <div class="tab-pane" id="d_month">
-                            <h3 class="card-title text-light">+{{ deaths_deltas.2 }}</h3>
+                            <h3 class="card-title text-light"><strong>{{ current_deaths }}</strong> <sup class="text-danger">(+{{ deaths_deltas.2 }})</sup></h3>
                         </div>
                     </div>
                 </div>
                 <div class="card-footer">
                     <ul class="stats nav nav-tabs small font-weight-light mr-auto">
-                        <li><i class="material-icons mr-2">update</i></li>
+                        <li class="mr-2">Change:</li>
                         <li class="nav-item mr-2 active">
-                            <a data-toggle="tab" href="#d_day" class="text-secondary">Day</a>
+                            <a data-toggle="tab" href="#d_day" class="text-secondary">Today</a>
                         </li>
                         <li class="nav-item mr-2">
                             <a data-toggle="tab" href="#d_week" class="text-secondary">Week</a>
@@ -159,6 +159,7 @@ body.modal-open[style] {
                             <a data-toggle="tab" href="#d_month" class="text-secondary">Month</a>
                         </li>
                     </ul>
+
                 </div>
             </div>
         </div>
@@ -205,14 +206,14 @@ body.modal-open[style] {
                     </a>
                 </li>
                 <li class="nav-item" id="my">
-                    <a class="nav-link" href="#" data-toggle="tab" id="14">
-                        <i class="fas fa-calendar-week fa-lg mr-2"></i>2 Weeks
+                    <a class="nav-link" href="#" data-toggle="tab" id="30">
+                        <i class="fas fa-calendar-week fa-lg mr-2"></i> Month
                         <div class="ripple-container"></div>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" data-toggle="tab" id="30">
-                        <i class="fas fa-calendar-alt fa-lg mr-2"></i> Month
+                    <a class="nav-link" href="#" data-toggle="tab" id="90">
+                        <i class="fas fa-calendar-alt fa-lg mr-2"></i> 3 Months
                         <div class="ripple-container"></div>
                     </a>
                 </li>
@@ -227,8 +228,8 @@ body.modal-open[style] {
                             <div class="card-body">
                                 <h4 class="card-title">Confirmed Cases</h4>
                                 <p class="card-category">
-                                    <span class="text-success"><i class="fa fa-long-arrow-up"></i>{{ confirmed_increase }}% </span>
-                                    in cases</p>
+                                    <span class="text-success"><i class="fa fa-long-arrow-up"></i> {{ confirmed_increase }} % </span>
+                                    in cases today</p>
                             </div>
                             <div class="card-footer">
                                 <div class="stats">
@@ -247,7 +248,7 @@ body.modal-open[style] {
                                 <p class="card-category">
                                 <span class="text-danger"><i
                                         class="fa fa-long-arrow-up"></i> {{ death_increase }} % </span>
-                                    in deaths</p>
+                                    in deaths today</p>
                             </div>
                             <div class="card-footer">
                                 <div class="stats">

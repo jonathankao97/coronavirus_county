@@ -110,7 +110,11 @@ def hello(request):
 def data(request, county_id):
     sups = ["aux", "st", "nd", "rd", "th"]
     county = County.objects.get(id=county_id)
-    confirmed = day_array_converter(county.get_confirmed(), 30)
+
+    confirmed = county.get_confirmed()
+    print(confirmed)
+    beg = max(0, len(confirmed)-90)
+    confirmed = confirmed[beg:]
     deltas = [1, 7, 30]
     confirmed_deltas = []
     deaths_deltas = []
@@ -123,7 +127,9 @@ def data(request, county_id):
     confirmed_increase = 0
     if len(confirmed) >= 2 and confirmed[-2] != 0:
         confirmed_increase = int(float(confirmed_deltas[0] * 100) / confirmed[-2])
-    deaths = day_array_converter(county.get_deaths(), 30)
+    deaths = county.get_deaths()
+    beg = max(0, len(deaths) - 90)
+    deaths = deaths[beg:]
     for i in range(0, len(deltas)):
         delta = deltas[i]
         if len(confirmed) > delta:
@@ -137,6 +143,8 @@ def data(request, county_id):
     state_rank = int(county.state.get_state_ranking()[-1])
     context = {
         'confirmed': confirmed,
+        'current_confirmed': confirmed[-1],
+        'current_deaths': deaths[-1],
         'confirmed_deltas': confirmed_deltas,
         'confirmed_increase': confirmed_increase,
         'deaths': deaths,
@@ -151,7 +159,7 @@ def data(request, county_id):
         'x_axis': []
     }
     now = timezone.localtime(timezone.now())
-    for i in range(0, min(len(confirmed), 30)):
+    for i in range(0, min(len(confirmed), 90)):
         context['x_axis'].append(now.strftime('%-m/%-d'))
         now -= timedelta(1)
     context['x_axis'].reverse()
@@ -204,18 +212,3 @@ def add_county(queries, county, note):
         county.note = note
         county.state_initials = us_state_abbrev[county.state.name]
         queries.add(county)
-
-
-def day_array_converter(arr, days):
-    length = len(arr)
-    ret = []
-    sum = 0
-    for i in range(0, length):
-        if i/8 == days:
-            break
-        index = length - 1 - i
-        sum += arr[index]
-        if i % 8 == 7:
-            ret.append(int(sum / 8.0))
-    return ret
-
