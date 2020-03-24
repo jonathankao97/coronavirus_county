@@ -27,6 +27,7 @@ class City(models.Model):
 
 
 def add_city(zip_code, name, county):
+    print("GET OR CREATE", name)
     return City.objects.get_or_create(zip_code=zip_code, name=name, county=county)[0]
 
 
@@ -85,6 +86,9 @@ class State(models.Model):
     deaths = models.CharField(default="[]", max_length=3600)
     state_ranking = models.CharField(default="[]", max_length=3600)
 
+    positive_tests = models.IntegerField(default=0, blank=True)
+    negative_tests = models.IntegerField(default=0, blank=True)
+
     def __str__(self):
         return self.name
 
@@ -105,6 +109,10 @@ class State(models.Model):
 
     def get_state_ranking(self):
         return json.loads(State.objects.filter(id=self.id)[0].state_ranking)
+
+    def set_positive_negative(self, positive_tests, negative_tests):
+        State.objects.filter(id=self.id).update(positive_tests=positive_tests)
+        State.objects.filter(id=self.id).update(negative_tests=negative_tests)
 
 
 def add_state(name, confirmed, deaths, state_ranking):

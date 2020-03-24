@@ -26,7 +26,13 @@ app.conf.beat_schedule = {
     'send_emails': {
         'task': 'send_emails',
         # 'schedule': crontab(minute=0, hour='*/1'),
-        'schedule': 1500.0,
+        'schedule': 3600.0,
+        'args': (),
+    },
+    'update_test_cases': {
+        'task': 'update_test_cases',
+        # 'schedule': crontab(minute=0, hour='*/1'),
+        'schedule': 300.0,
         'args': (),
     }
 

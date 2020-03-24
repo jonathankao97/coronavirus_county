@@ -12,50 +12,74 @@ django.setup()
 from county.models import add_city, add_county, add_state
 
 
-def parse_county(state, counter, county):
+def parse_county(state, counter, county, dict):
     county_info = county.find_all('span', 'jsx-314244412')
     name = county_info[0].text  # get rid of all weird extra spaces
     if name[-1] == ' ':
         name = name[0:-1]
-    confirmed = county_info[1].text
-    deaths = county_info[2].text
-    with open('dict.json', 'r') as file:
-        dict = json.loads(file.readline())
+    if len(county_info[1].find_all('div')) == 0:
+        confirmed = county_info[1].text
+    else:
+        county_info[1].find_all('div')[0].decompose()
+        confirmed = county_info[1].text
+    if len(county_info[2].find_all('div')) == 0:
+        deaths = county_info[2].text
+    else:
+        county_info[2].find_all('div')[0].decompose()
+        deaths = county_info[2].text
 
-    if name in dict:
-        fips_code = dict.get(name)[0][1]
+    key = name + "," + state.name
+    if key[-1] == " ":
+        key = key[:-1]
+    if key in dict:
+        fips_code = dict.get(key)[0][1]
         county_object = add_county(name=name, fips_code=fips_code,
                                    confirmed=int(confirmed), deaths=int(deaths), county_ranking=counter+1, state=state)
-        for city in dict.get(name):
+        for city in dict.get(key):
             add_city(zip_code=city[1], name=city[2], county=county_object)
+        del county_object
     else:
-        print("Not in dict", name)
+        print("Not in dict", key)
+
 
 
 def parse_state(counter, state_info):
     name = state_info[0].text
-    confirmed = state_info[1].text
-    deaths = state_info[2].text
+
+    if len(state_info[1].find_all('div')) == 0:
+        confirmed = state_info[1].text
+    else:
+        state_info[1].find_all('div')[0].decompose()
+        confirmed = state_info[1].text
+    if len(state_info[2].find_all('div')) == 0:
+        deaths = state_info[2].text
+    else:
+        state_info[2].find_all('div')[0].decompose()
+        deaths = state_info[2].text
     return add_state(name=name, confirmed=int(confirmed), deaths=int(deaths), state_ranking=counter+1)
 
 
 def sync_data():
-    # chrome_options = webdriver.ChromeOptions()
-    # chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-    # chrome_options.add_argument("--headless")
-    # chrome_options.add_argument("--disable-dev-shm-usage")
-    # chrome_options.add_argument("--no-sandbox")
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+    chrome_options.add_argument("--no-sandbox")
     # #
-    # browser = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
-    # browser.get('https://coronavirus.1point3acres.com/en')
+    browser = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+    browser.get('https://coronavirus.1point3acres.com/en')
 
     # browser = webdriver.Chrome('/Users/jkao97/downloads/chromedriver')
-    browser = webdriver.Chrome('/Users/JonKao/downloads/chromedriver')
-    browser.get('https://coronavirus.1point3acres.com/en')
+    # # # browser = webdriver.Chrome('/Users/JonKao/downloads/chromedriver')
+    # browser.get('https://coronavirus.1point3acres.com/en')
 
     # print(browser.page_source)
 
     sleep(3)
+
+    with open('dict.json', 'r') as file:
+        dict = json.loads(file.readline())
+
     counter = 0
     for state in browser.find_elements_by_xpath("//div[(@class = 'jsx-314244412')]"):
         if state.get_attribute("class") == 'jsx-314244412':
@@ -75,6 +99,13 @@ def sync_data():
         state_object = parse_state(index, state_info)  # add state
         counties_list = state.find('div', 'jsx-314244412 counties')
         for index2, county in enumerate(counties_list.find_all('div', 'jsx-314244412 row')):
-            parse_county(state_object, index2, county)  # add all counties/cities
+            parse_county(state_object, index2, county, dict)  # add all counties/cities
+
+        del state_object
+        del state_info
+        del counties_list
+
+    browser.close()
+    browser.quit()
 
 sync_data()
