@@ -7,4 +7,5 @@ urlpatterns = [
     path('subscribe/', views.subscribe, name='signup'),
     path('unsubscribe/', views.unsubscribe, name='unsubscribe'),
     path('hello/', views.hello),
+    path('feedback/', views.feedback, name='feedback'),
 ]

@@ -173,6 +173,28 @@ def subscribe(request):
     return render(request, 'aux.html')
 
 
+def feedback(request):
+    print(request.POST)
+
+    email = request.POST['email']
+    first_name = request.POST['first_name']
+    last_name = request.POST['last_name']
+    feedback = request.POST['feedback']
+    print("FEEDBACK RECEIVED", email, first_name, last_name, feedback)
+
+    from county.tasks import send_feedback
+
+    data = {
+        'feedback': feedback,
+        'email': email,
+        'first_name': first_name,
+        'last_name': last_name,
+    }
+    send_feedback.delay(data)
+
+    return render(request, 'base.html')
+
+
 def search(request):
     if request.method == 'POST':
         search_text = request.POST['search_text']

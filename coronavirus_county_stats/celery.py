@@ -17,7 +17,6 @@ def debug_task(self):
 
 
 app.conf.beat_schedule = {
-
     'sync_data': {
         'task': 'sync_data',
         'schedule': crontab(minute=0, hour='*/3'),
@@ -35,5 +34,4 @@ app.conf.beat_schedule = {
         'schedule': 300.0,
         'args': (),
     }
-
 }

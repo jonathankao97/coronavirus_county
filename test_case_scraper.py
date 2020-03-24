@@ -5,6 +5,7 @@ import os
 import django
 from county.models import State
 
+
 def sync_data():
         os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'coronavirus_county_stats.settings')
         django.setup()
