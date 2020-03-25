@@ -1,5 +1,5 @@
 # Clear Cov-19
-![alt text](https://ibb.co/rtxq2Fb)
+![alt text](https://imgur.com/a/xXi3Q8T)
 A county-level presentation of COVID-19 cases across the US.
 
 ## If you're looking for...
