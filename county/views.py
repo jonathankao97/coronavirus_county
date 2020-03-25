@@ -190,16 +190,10 @@ def feedback(request):
     feedback = request.POST['feedback']
     print("FEEDBACK RECEIVED", email, first_name, last_name, feedback)
 
-    from county.tasks import send_feedback
-
-    data = {
-        'feedback': feedback,
-        'email': email,
-        'first_name': first_name,
-        'last_name': last_name,
-    }
-    send_feedback.delay(data)
-
+    from county.models import Feedback
+    sender_feedback = Feedback(email=email, first_name=first_name, last_name=last_name, feedback=feedback)
+    sender_feedback.save()
+    
     return render(request, 'base.html')
 
 

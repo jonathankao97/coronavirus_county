@@ -74,6 +74,22 @@ states = {
     'WV': 'West Virginia',
     'WY': 'Wyoming'
         }
+#
+# list = []
+# for county in County.objects.all():
+#     confirmed_list = county.get_confirmed()
+#     dead_list = county.get_deaths()
+#     if len(county.get_confirmed()) != 0:
+#         county_list = [county.state.name, county.name, confirmed_list[-1], dead_list[-1]]
+#         if len(confirmed_list) == 1:
+#             county_list.append(0)
+#         else:
+#             county_list.append(confirmed_list[-2])
+#         if len(dead_list) == 1:
+#             county_list.append(0)
+#         else:
+#             county_list.append(dead_list[-2])
+#         list.append(county_list)
 
 
 def helper(initial_list, add):
@@ -109,11 +125,11 @@ next_day = "1/20"
 #     print(next_day)
 # SETUP DAY_DICT
 for item in dict:
-    if item['confirmed_date'] != "3/23":
-        if item['confirmed_date'] in day_dict:
-            day_dict[item["confirmed_date"]].append([item['state_name'], item['county'], item['people_count'], item['die']])
-        else:
-            day_dict[item['confirmed_date']] = [[item['state_name'], item['county'], item['people_count'], item['die']]]
+    # if item['confirmed_date'] != "3/23":
+    if item['confirmed_date'] in day_dict:
+        day_dict[item["confirmed_date"]].append([item['state_name'], item['county'], item['people_count'], item['die']])
+    else:
+        day_dict[item['confirmed_date']] = [[item['state_name'], item['county'], item['people_count'], item['die']]]
 
 #RESET ALL LISTS
 
@@ -125,7 +141,7 @@ for county in County.objects.all():
 length_counter = 0
 while True:
     length_counter += 1
-    if next_day == "3/23":
+    if next_day == "3/24":
         break
 
     if next_day in day_dict:
@@ -135,7 +151,7 @@ while True:
             try:
                 state = State.objects.filter(name=states[report[0]])[0]
                 print(state.name)
-                county = County.objects.filter(name=report[1])[0]
+                county = County.objects.filter(name=report[1], state=state)[0]
                 print(county.name)
                 if len(county.get_confirmed()) == length_counter:
                     confirmed_list = county.get_confirmed()
@@ -177,6 +193,17 @@ while True:
 
 # print(dict)
 # print(list)
+# for item in list:
+#     state = State.objects.filter(name=item[0])[0]
+#     county = County.objects.filter(name=item[1], state=state)[0]
+#     confirmed_list = county.get_confirmed()
+#     dead_list = county.get_deaths()
+#     confirmed_list.append(item[2])
+#     confirmed_list.append(item[4])
+#     dead_list.append(item[3])
+#     dead_list.append(item[5])
+#     county.set_confirmed(confirmed_list)
+#     county.set_deaths(dead_list)
 
 # del list
 # print(daily_seen_dict)

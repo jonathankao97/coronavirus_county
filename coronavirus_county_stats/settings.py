@@ -94,7 +94,7 @@ DATABASES = {
     # }
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'cov19_db',
+        'NAME': 'developmnent_db_name',
         'HOST': 'localhost',
         'PORT': '',
     }

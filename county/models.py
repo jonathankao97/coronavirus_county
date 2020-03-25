@@ -2,6 +2,12 @@ from django.db import models
 import json
 # Create your models here.
 
+class Feedback(models.Model):
+    email = models.CharField(max_length=100)
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    feedback = models.TextField()
+
 
 class Email(models.Model):
     email = models.CharField(max_length=100)
