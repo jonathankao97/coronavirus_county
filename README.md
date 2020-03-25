@@ -1,5 +1,6 @@
 # Clear Cov-19
 ![alt text](https://i.postimg.cc/7hFBCsft/Clear-Cov-19-Logo.png)
+
 A county-level presentation of COVID-19 cases across the US.
 
 ## If you're looking for...
