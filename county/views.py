@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponseRedirect
 from county.models import City, County, State, Email
 from django.utils import timezone
 from datetime import timedelta
@@ -100,7 +100,9 @@ def mail(request):
 
 
 def test(request):
-    return render(request, 'test.html')
+    # return HttpResponseRedirect("http://clearcov19.com/county/103/")
+    return redirect('data', 103)
+    # return render(request, 'test.html')
 
 
 def hello(request):
