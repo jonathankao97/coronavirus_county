@@ -125,11 +125,11 @@ next_day = "1/20"
 #     print(next_day)
 # SETUP DAY_DICT
 for item in dict:
-    # if item['confirmed_date'] != "3/23":
-    if item['confirmed_date'] in day_dict:
-        day_dict[item["confirmed_date"]].append([item['state_name'], item['county'], item['people_count'], item['die']])
-    else:
-        day_dict[item['confirmed_date']] = [[item['state_name'], item['county'], item['people_count'], item['die']]]
+    if item['confirmed_date'] != "3/23":
+        if item['confirmed_date'] in day_dict:
+            day_dict[item["confirmed_date"]].append([item['state_name'], item['county'], item['people_count'], item['die']])
+        else:
+            day_dict[item['confirmed_date']] = [[item['state_name'], item['county'], item['people_count'], item['die']]]
 
 #RESET ALL LISTS
 
@@ -141,7 +141,7 @@ for county in County.objects.all():
 length_counter = 0
 while True:
     length_counter += 1
-    if next_day == "3/24":
+    if next_day == "3/23":
         break
 
     if next_day in day_dict:
