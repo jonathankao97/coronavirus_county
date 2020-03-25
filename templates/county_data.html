@@ -58,7 +58,7 @@ body.modal-open[style] {
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label class="bmd-label-floating">Email address</label>
-                                                <input type="email" class="form-control" id="email"
+                                                <input type="email" class="form-control" id="email1"
                                                        required>
                                             </div>
                                         </div>
@@ -67,13 +67,13 @@ body.modal-open[style] {
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label class="bmd-label-floating">Fist Name</label>
-                                                <input type="text" class="form-control" id="first_name" required>
+                                                <input type="text" class="form-control" id="first_name1" required>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label class="bmd-label-floating">Last Name</label>
-                                                <input type="text" class="form-control" id="last_name" required>
+                                                <input type="text" class="form-control" id="last_name1" required>
                                             </div>
                                         </div>
                                     </div>
@@ -82,7 +82,7 @@ body.modal-open[style] {
                                 </div>
                             </div>
                             <div class="modal-footer pt-0 mt-0" style="border:none;">
-                                <button type="submit" class="btn btn-primary pull-right" id="target">Submit</button>
+                                <button type="submit" class="btn btn-primary pull-right" id="target2">Submit</button>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             </div>
                         </form>
@@ -281,8 +281,9 @@ body.modal-open[style] {
     {type:"success",timer:3e3,placement:{from:e,align:a}})
     }
 
-    $( "#target" ).click(function() {
-    var valid = $('#email')[0].checkValidity() && $('#first_name')[0].checkValidity() && $('#last_name')[0].checkValidity()
+    $( "#target2" ).click(function() {
+    console.log("hi")
+    var valid = $('#email1')[0].checkValidity() && $('#first_name1')[0].checkValidity() && $('#last_name1')[0].checkValidity()
     if (valid){
       $('#myModal').hide();
       $.ajax({
@@ -290,9 +291,9 @@ body.modal-open[style] {
             url: "/county/subscribe/",
             data: {
                 'county_id': {{ county.id }},
-                'email': $('#email').val(),
-                'first_name': $('#first_name').val(),
-                'last_name': $('#last_name').val(),
+                'email': $('#email1').val(),
+                'first_name': $('#first_name1').val(),
+                'last_name': $('#last_name1').val(),
                 'csrfmiddlewaretoken': $("input[name=csrfmiddlewaretoken]").val(),
             },
             success:searchSuccess,
