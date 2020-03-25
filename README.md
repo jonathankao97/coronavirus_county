@@ -3,9 +3,12 @@ A county-level presentation of COVID-19 cases across the US.
 
 ## If you're looking for...
 * Up-to-date statistics on COVID-19 for your own county
-* Daily email updates on how Coronavirus is changing in your area
 * A way to quickly look up any affected US county
+* Daily email updates on how Coronavirus is changing in your area
 * A minimalist and user-friendly interface :)
+
+Clear Cov-19 strives to meet these needs and much more, to do our part as global citizens.
+
 ------------------
 
 ## Technologies Used
