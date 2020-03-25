@@ -20,6 +20,7 @@ from county import views
 
 
 urlpatterns = [
+    path('home', views.home, name='home'),
     path('', views.test, name='test'),
     path('admin/', admin.site.urls),
     path('county/', include('county.urls')),
