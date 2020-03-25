@@ -23,7 +23,7 @@ class Email(models.Model):
 
 
 class City(models.Model):
-    zip_code = models.IntegerField()
+    zip_code = models.IntegerField(db_index=True)
     name = models.CharField(max_length=100, default="")
     # city_size = models.IntegerField()
     county = models.ForeignKey('County', on_delete=models.CASCADE)
@@ -38,7 +38,7 @@ def add_city(zip_code, name, county):
 
 
 class County(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, db_index=True)
     fips_code = models.IntegerField()
     confirmed = models.CharField(default="[]", max_length=3600)
     deaths = models.CharField(default="[]", max_length=3600)
