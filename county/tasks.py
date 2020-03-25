@@ -9,17 +9,23 @@ from django.core.mail import send_mail
 from coronavirus_county_stats.settings import EMAIL_HOST_USER
 from county.models import Email
 
-# #
-# # We can have either registered task
+
 @shared_task(name="sync_data")
 def sync_data(*args, **kwargs):
     confirmed_sync()
-    # os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'coronavirus_county_stats.settings')
+
 
 @shared_task(name="update_test_cases")
 def update_test_cases(*args, **kwargs):
     test_sync()
 
+
+@shared_task(name="send_feedback")
+def send_feedback(data):
+    email_content = "First Name: " + data['first_name'] + "\n" + "Last Name:" + data['last_name'] + "\n"
+    email_content += "Email: " + data["email"] + "\n"
+    email_content += "Feedback: " + data["feedback"] + "\n"
+    send_mail("User Feedback", email_content, EMAIL_HOST_USER, [EMAIL_HOST_USER])
 
 
 
