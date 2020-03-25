@@ -34,14 +34,6 @@
   gtag('js', new Date());
 
   gtag('config', 'UA-159250806-2');
-
-
-
-
-
-
-
-
     </script>
 
 </head>
@@ -278,8 +270,24 @@
                                         <div class="modal-body pt-2 my-0" style="border:none;">
                                             <div class="card-body">
                                                 <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group" style="width:100%">
+                                                            <label class="bmd-label-floating">Fist Name</label>
+                                                            <input type="text" class="form-control" id="first_name"
+                                                                   required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group" style="width:100%">
+                                                            <label class="bmd-label-floating">Last Name</label>
+                                                            <input type="text" class="form-control" id="last_name"
+                                                                   required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                 <div class="row">
                                                     <div class="col-md-12">
-                                                        <div class="form-group">
+                                                        <div class="form-group" style="width: 100%">
                                                             <label class="bmd-label-floating">Email address</label>
                                                             <input type="email" class="form-control" id="email"
                                                                    required>
@@ -287,38 +295,15 @@
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label class="bmd-label-floating">Fist Name</label>
-                                                            <input type="text" class="form-control" id="first_name"
-                                                                   required>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label class="bmd-label-floating">Last Name</label>
-                                                            <input type="text" class="form-control" id="last_name"
-                                                                   required>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            {# <label class="bmd-label-floating">Feedback</label>#}
-                                                            {# <label>Feedback</label>#}
+                                                    <div class="col-md-12">
+                                                        <div class="form-group" style="width: 100%">
                                                             <label class="bmd-label-floating">Feedback</label>
                                                             <textarea class="form-control" rows="5"
                                                                       id="feedback"></textarea>
-
-                                                            {# <input type="text" class="form-control" id="feedback" #}
-                                                                      {# required>#}
                                                         </div>
                                                     </div>
                                                 </div>
-
                                             </div>
-
                                         </div>
                                         <div class="modal-footer pt-0 mt-0" style="border:none;">
                                             <button type="submit" class="btn btn-primary pull-right" id="target1">
