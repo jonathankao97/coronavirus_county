@@ -181,6 +181,32 @@ def subscribe(request):
     return render(request, 'aux.html')
 
 
+def search1(request):
+    if request.method == 'POST':
+        search_text = request.POST['search_text']
+    else:
+        search_text = ''
+
+    queries = set()
+
+    if len(search_text) > 2:
+        try:
+            zip_code = int(search_text)
+            zip_cities = City.objects.filter(zip_code__startswith=zip_code)
+            for city in zip_cities:
+                add_county(queries, city.county, "zip " + str(city.zip_code))
+        except ValueError:
+            counties = County.objects.filter(name__icontains=search_text)
+
+            for county in counties:
+                add_county(queries, county, "county " + county.name)
+
+    print(search_text)
+    print(list(queries))
+
+    return render(request, 'ajax_search1.html', {'queries': list(queries)})
+
+
 def search(request):
     if request.method == 'POST':
         search_text = request.POST['search_text']
@@ -196,7 +222,7 @@ def search(request):
             for city in zip_cities:
                 add_county(queries, city.county, "zip " + str(city.zip_code))
         except ValueError:
-            counties = County.objects.filter(name__startswith=search_text)
+            counties = County.objects.filter(name__icontains=search_text)
 
             for county in counties:
                 add_county(queries, county, "county " + county.name)

@@ -1,0 +1,6 @@
+{% for county in queries %}
+<a class="dropdown-item" href="/county/{{ county.id }}/">
+            <h5 class="medium text-success align-items-center"> {{ county.name }}
+            <span class="compressed small float-right text-warning">{{ county.state_initials }}</span>
+            </h5></a>
+{% endfor %}
