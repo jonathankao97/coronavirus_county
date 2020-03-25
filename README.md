@@ -1,4 +1,5 @@
 # Clear Cov-19
+
 A county-level presentation of COVID-19 cases across the US.
 
 ## If you're looking for...
@@ -21,7 +22,9 @@ Clear Cov-19 strives to meet these needs and much more, to do our part as global
 
 ## Data Sources
 http://coronavirus.1point3acres.com/en
+
 http://simplemaps.com/data/us-zips
+
 ------------------
 
 ## Creators
