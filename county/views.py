@@ -117,7 +117,6 @@ def hello(request):
 def data(request, county_id):
     sups = ["aux", "st", "nd", "rd", "th"]
     county = County.objects.get(id=county_id)
-
     confirmed = county.get_confirmed()
     print(confirmed)
     beg = max(0, len(confirmed)-90)
@@ -161,6 +160,8 @@ def data(request, county_id):
         'county_rank_sup': sups[min(4, county_rank)],
         'state_rank': state_rank,
         'state_rank_sup': sups[min(4, state_rank)],
+        'state_total_counties': len(County.objects.filter(state=county.state)),
+        'state_initials': us_state_abbrev[county.state.name],
         'county': county,
         'state': county.state,
         'x_axis': []
