@@ -8,6 +8,7 @@ from test_case_scraper import sync_data as test_sync
 from django.core.mail import send_mail
 from coronavirus_county_stats.settings import EMAIL_HOST_USER
 from county.models import Email, State, County
+from county.views import us_state_abbrev
 
 
 @shared_task(name="sync_data")
@@ -84,9 +85,14 @@ def send_emails(*args, **kwargs):
                                          'county_ranking': county_ranking_list[-1],
                                          'county_rank_sup': sups[min(4, county_ranking_list[-1])],
                                          'state_ranking': state_ranking_list[-1],
+                                         'total_counties': len(County.objects.filter(state=email.county.state)),
+                                         'positive': email.county.state.positive_tests,
+                                         'negative': email.county.state.negative_tests,
                                          'state_rank_sup': sups[min(4, state_ranking_list[-1])],
                                          'county_ranking_change': county_ranking_change,
                                          'state_ranking_change': state_ranking_change,
+                                         'state': email.county.state,
+                                         'state_initials': us_state_abbrev[email.county.state.name],
                                          })
         plain_message = strip_tags(html_message)
         send_mail(email.county.name + " Clear Cov-19 Report", plain_message, EMAIL_HOST_USER,
