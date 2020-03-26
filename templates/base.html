@@ -351,7 +351,7 @@
             }
     })
 
-    function showNotification(e,a){
+    function showNotification1(e,a){
     $.notify({icon:"add_alert",
     message:"Thank you for your feedback! We will get back to you soon."},
     {type:"success",timer:3e3,placement:{from:e,align:a}})
@@ -377,7 +377,7 @@
         });
     }
     function searchSuccess(data, textStatus, jqXHR){
-    showNotification('top','center');
+    showNotification1('top','center');
     $.clearInput();
     }
 });
@@ -411,12 +411,6 @@
     function searchSuccess1(data, textStatus, jqXHR){
     $('#search-results1').html(data);
     }
-
-
-
-
-
-
 
 
 </script>

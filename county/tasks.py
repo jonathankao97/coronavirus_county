@@ -3,7 +3,7 @@ from django.utils.html import strip_tags
 from celery import task
 from celery import shared_task
 import os
-# from scraper import sync_data as confirmed_sync
+from scraper import sync_data as confirmed_sync
 from test_case_scraper import sync_data as test_sync
 from django.core.mail import send_mail
 from coronavirus_county_stats.settings import EMAIL_HOST_USER
