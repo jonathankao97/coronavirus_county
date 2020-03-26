@@ -26,14 +26,16 @@ body.modal-open[style] {
             <div class="col-xl-4 col-lg-3 col-md-0 mt-3"></div>
             <div class="col-xl-4 col-lg-6 col-md-6 col col mt-2">
                 <div class="card py-1 mx-0">
-                    <h3 class="card-title text-white text-center large pr-5 pl-5">{{ county.name }} County ({{state_initials}})</h3>
+                    <h3 class="card-title text-white text-center large pr-5 pl-5">{{ county.name }} County
+                        ({{state_initials}})</h3>
                 </div>
             </div>
             <div class="col-xl-4 col-lg-3 col-md-6 col-sm-6">
                 <div class="card-transparent mt-3">
                     <div class="card-body px-0">
                         <button type="submit" class="btn btn-primary pull-right" data-toggle="modal"
-                           href="#myModal">Receive Updates</button>
+                                href="#myModal">Receive Updates
+                        </button>
                     </div>
                 </div>
             </div>
@@ -41,7 +43,8 @@ body.modal-open[style] {
                 <div class="modal-dialog" role="document">
                     <div class="card modal-content" style="background-color:#313952">
                         <div class="modal-header" style="border:none;">
-                            <button class="close text-white mx-0 pull-right invisible" data-dismiss="modal" aria-label="Close">
+                            <button class="close text-white mx-0 pull-right invisible" data-dismiss="modal"
+                                    aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                             <h5 class="modal-title text-white mx-auto" id="exampleModalLabel">{{ county }} County
@@ -92,7 +95,7 @@ body.modal-open[style] {
         </div>
     </div>
     <div class="row p-0">
-        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 ">
+        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 ">
             <div class="card card-stats">
                 <div class="card-header card-header-success card-header-icon">
                     <div class="card-icon">
@@ -101,13 +104,16 @@ body.modal-open[style] {
                     <p class="card-category">Confirmed Cases</p>
                     <div class="tab-content">
                         <div class="tab-pane active" id="c_day">
-                            <h3 class="card-title text-light"><strong>{{ current_confirmed }}</strong> <sup class="text-success">(+{{ confirmed_deltas.0 }})</sup></h3>
+                            <h3 class="card-title text-light"><strong>{{ current_confirmed }}</strong> <sup
+                                    class="text-success">(+{{ confirmed_deltas.0 }})</sup></h3>
                         </div>
                         <div class="tab-pane" id="c_week">
-                            <h3 class="card-title text-light"><strong>{{ current_confirmed }}</strong> <sup class="text-success"> (+{{ confirmed_deltas.1 }}<sup></sup>)</sup></h3>
+                            <h3 class="card-title text-light"><strong>{{ current_confirmed }}</strong> <sup
+                                    class="text-success"> (+{{ confirmed_deltas.1 }}<sup></sup>)</sup></h3>
                         </div>
                         <div class="tab-pane" id="c_month">
-                            <h3 class="card-title text-light"><strong>{{ current_confirmed }}</strong> <sup class="text-success"> (+{{ confirmed_deltas.2 }})</sup></h3>
+                            <h3 class="card-title text-light"><strong>{{ current_confirmed }}</strong> <sup
+                                    class="text-success"> (+{{ confirmed_deltas.2 }})</sup></h3>
                         </div>
                     </div>
                 </div>
@@ -127,7 +133,7 @@ body.modal-open[style] {
                 </div>
             </div>
         </div>
-        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 mt-0">
+        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 mt-0">
             <div class="card card-stats">
                 <div class="card-header card-header-danger card-header-icon">
                     <div class="card-icon">
@@ -136,13 +142,16 @@ body.modal-open[style] {
                     <p class="card-category">Deceased</p>
                     <div class="tab-content">
                         <div class="tab-pane active" id="d_day">
-                            <h3 class="card-title text-light"><strong>{{ current_deaths }}</strong> <sup class="text-danger">(+{{ deaths_deltas.0 }})</sup></h3>
+                            <h3 class="card-title text-light"><strong>{{ current_deaths }}</strong> <sup
+                                    class="text-danger">(+{{ deaths_deltas.0 }})</sup></h3>
                         </div>
                         <div class="tab-pane" id="d_week">
-                            <h3 class="card-title text-light"><strong>{{ current_deaths }}</strong> <sup class="text-danger">(+{{ deaths_deltas.1 }})</sup></h3>
+                            <h3 class="card-title text-light"><strong>{{ current_deaths }}</strong> <sup
+                                    class="text-danger">(+{{ deaths_deltas.1 }})</sup></h3>
                         </div>
                         <div class="tab-pane" id="d_month">
-                            <h3 class="card-title text-light"><strong>{{ current_deaths }}</strong> <sup class="text-danger">(+{{ deaths_deltas.2 }})</sup></h3>
+                            <h3 class="card-title text-light"><strong>{{ current_deaths }}</strong> <sup
+                                    class="text-danger">(+{{ deaths_deltas.2 }})</sup></h3>
                         </div>
                     </div>
                 </div>
@@ -163,34 +172,70 @@ body.modal-open[style] {
                 </div>
             </div>
         </div>
-        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
-            <div class="card card-stats">
-                <div class="card-header card-header-info card-header-icon">
-                    <div class="card-icon">
-                        <i class="fas fa-flag-usa"></i>
-                    </div>
-                    <p class="card-category"><strong>{{ state.name }} </strong> severity</p>
-                    <h3 class="card-title text-white">{{ state_rank }}<sup>{{ state_rank_sup }}</sup><sub class="text-secondary"> / 50</sub></h3>
-                </div>
-                <div class="card-footer">
-                    <div class="stats small">
-                        <i class="material-icons">flag</i> In the USA
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+         <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
             <div class="card card-stats">
                 <div class="card-header card-header-warning card-header-icon">
                     <div class="card-icon">
                         <i class="material-icons">location_city</i>
                     </div>
                     <p class="card-category"><strong>{{ county.name }} </strong> severity</p>
-                    <h3 class="card-title text-white">{{ county_rank }}<sup>{{ county_rank_sup }}</sup><sub class="text-secondary"> / {{ state_total_counties }}</sub></h3>
+                    <h3 class="card-title text-white">{{ county_rank }}<sup>{{ county_rank_sup }}</sup><sub
+                            class="text-secondary"> / {{ state_total_counties }}</sub></h3>
                 </div>
                 <div class="card-footer">
                     <div class="stats small">
                         <i class="material-icons">flag</i> In {{ state.name }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
+            <div class="card card-stats">
+                <div class="card-header card-header-primary card-header-icon">
+                    <div class="card-icon">
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <p class="card-category">Positive Tests</p>
+                    <h3 class="card-title text-white">{{ positive }}</h3>
+                </div>
+                <div class="card-footer">
+                    <div class="stats small">
+                        <i class="material-icons">flag</i> In {{ state.name }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
+            <div class="card card-stats">
+                <div class="card-header card-header-secondary card-header-icon">
+                    <div class="card-icon">
+                        <i class="fas fa-minus"></i>
+                    </div>
+                    <p class="card-category">Negative Tests</p>
+                    <h3 class="card-title text-white">{{ negative }}</h3>
+                </div>
+                <div class="card-footer">
+                    <div class="stats small">
+                        <i class="material-icons">flag</i> In {{ state.name }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
+            <div class="card card-stats">
+                <div class="card-header card-header-info card-header-icon">
+                    <div class="card-icon">
+                        <i class="fas fa-flag-usa"></i>
+                    </div>
+                    <p class="card-category"><strong>{{ state.name }} </strong> severity</p>
+                    <h3 class="card-title text-white">{{ state_rank }}<sup>{{ state_rank_sup }}</sup><sub
+                            class="text-secondary"> / 50</sub></h3>
+                </div>
+                <div class="card-footer">
+                    <div class="stats small">
+                        <i class="material-icons">flag</i> In the USA
                     </div>
                 </div>
             </div>
@@ -259,9 +304,9 @@ body.modal-open[style] {
                     </div>
                 </div>
                 <div class="card-footer pt-0">
-                    <div class="stats pt-0">
+                    <div class="stats pt-0 mx-auto">
                         <i class="material-icons text-danger">warning</i>
-                        <a href="#pablo" class="danger-link">Get more info...</a>
+                        <a href="#pablo" class="danger-link">More information below!</a>
                     </div>
                 </div>
             </div>
@@ -309,5 +354,9 @@ body.modal-open[style] {
 $.clearInput = function () {
         $('form').find('input[type=text], input[type=password], input[type=number], input[type=email], textarea').val('');
 };
+
+
+
+
 </script>
 {% endblock %}
