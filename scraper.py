@@ -37,7 +37,8 @@ def parse_county(state, counter, county, dict):
         county_object = add_county(name=name, fips_code=fips_code,
                                    confirmed=int(confirmed), deaths=int(deaths), county_ranking=counter+1, state=state)
         for city in dict.get(key):
-            add_city(zip_code=city[1], name=city[2], county=county_object)
+            city = add_city(zip_code=city[1], name=city[2], county=county_object)
+            del city
         del county_object
     else:
         print("Not in dict", key)
