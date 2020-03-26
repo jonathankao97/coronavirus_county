@@ -2,6 +2,7 @@ from django.db import models
 import json
 # Create your models here.
 
+
 class Feedback(models.Model):
     email = models.CharField(max_length=100)
     first_name = models.CharField(max_length=100)
@@ -45,6 +46,9 @@ class County(models.Model):
     state_county_ranking = models.CharField(default="[]", max_length=3600)
     state = models.ForeignKey('State', on_delete=models.CASCADE)
 
+    today_delta_confirmed = models.IntegerField(default=0)
+    today_delta_deaths = models.IntegerField(default=0)
+
     def __str__(self):
         return self.name
 
@@ -78,11 +82,11 @@ def add_county(state, name, fips_code, confirmed, deaths, county_ranking):
         county_object.save()
     else:
         county_object = County.objects.filter(name=name, fips_code=fips_code)[0]
-        county_object.save()
 
-    county_object.set_confirmed(helper(county_object.get_confirmed(), confirmed))
-    county_object.set_deaths(helper(county_object.get_deaths(), deaths))
+    county_object.today_delta_confirmed = confirmed
+    county_object.today_delta_deaths = deaths
     county_object.set_state_county_ranking(helper(county_object.get_state_county_ranking(), county_ranking))
+    county_object.save()
     return county_object
 
 
@@ -94,6 +98,9 @@ class State(models.Model):
 
     positive_tests = models.IntegerField(default=0, blank=True)
     negative_tests = models.IntegerField(default=0, blank=True)
+
+    today_delta_confirmed = models.IntegerField(default=0)
+    today_delta_deaths = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name
@@ -132,8 +139,8 @@ def add_state(name, confirmed, deaths, state_ranking):
         state_object.save()
     else:
         state_object = State.objects.filter(name=name)[0]
-        state_object.save()
-    state_object.set_confirmed(helper(state_object.get_confirmed(), confirmed))
-    state_object.set_deaths(helper(state_object.get_deaths(), deaths))
+    state_object.today_delta_confirmed = confirmed
+    state_object.today_delta_deaths = deaths
     state_object.set_state_ranking(helper(state_object.get_state_ranking(), state_ranking))
+    state_object.save()
     return state_object

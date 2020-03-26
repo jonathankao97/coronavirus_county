@@ -7,7 +7,7 @@ from scraper import sync_data as confirmed_sync
 from test_case_scraper import sync_data as test_sync
 from django.core.mail import send_mail
 from coronavirus_county_stats.settings import EMAIL_HOST_USER
-from county.models import Email
+from county.models import Email, State, County
 
 
 @shared_task(name="sync_data")
@@ -26,6 +26,22 @@ def send_feedback(data):
     email_content += "Email: " + data["email"] + "\n"
     email_content += "Feedback: " + data["feedback"] + "\n"
     send_mail("User Feedback", email_content, EMAIL_HOST_USER, [EMAIL_HOST_USER])
+
+
+def helper(initial_list, add):
+    initial_list.append(add)
+    return initial_list
+
+
+@shared_task(name="push_data")
+def push_data(*args, **kwargs):
+    for state in State.objects.all():
+        state.set_confirmed(helper(state.get_confirmed(), state.today_delta_confirmed))
+        state.set_deaths(helper(state.get_deaths(), state.today_delta_deaths))
+
+    for county in County.objects.all():
+        county.set_confirmed(helper(county.get_confirmed(), county.today_delta_confirmed))
+        county.set_deaths(helper(county.get_deaths(), county.today_delta_deaths))
 
 
 
