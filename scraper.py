@@ -27,7 +27,8 @@ def parse_county(state, counter, county, dict):
     else:
         county_info[2].find_all('div')[0].decompose()
         deaths = county_info[2].text
-
+    confirmed = confirmed.replace(',', '')
+    deaths = deaths.replace(',', '')
     key = name + "," + state.name
     if key[-1] == " ":
         key = key[:-1]
@@ -55,6 +56,8 @@ def parse_state(counter, state_info):
     else:
         state_info[2].find_all('div')[0].decompose()
         deaths = state_info[2].text
+    confirmed = confirmed.replace(',', '')
+    deaths = deaths.replace(',', '')
     return add_state(name=name, confirmed=int(confirmed), deaths=int(deaths), state_ranking=counter+1)
 
 
