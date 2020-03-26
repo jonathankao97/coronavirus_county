@@ -95,7 +95,7 @@ body.modal-open[style] {
         </div>
     </div>
     <div class="row p-0">
-        <div class="offset-xl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 ">
+        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 ">
             <div class="card card-stats">
                 <div class="card-header card-header-success card-header-icon">
                     <div class="card-icon">
@@ -172,6 +172,74 @@ body.modal-open[style] {
                 </div>
             </div>
         </div>
+         <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
+            <div class="card card-stats">
+                <div class="card-header card-header-warning card-header-icon">
+                    <div class="card-icon">
+                        <i class="material-icons">location_city</i>
+                    </div>
+                    <p class="card-category"><strong>{{ county.name }} </strong> severity</p>
+                    <h3 class="card-title text-white">{{ county_rank }}<sup>{{ county_rank_sup }}</sup><sub
+                            class="text-secondary"> / {{ state_total_counties }}</sub></h3>
+                </div>
+                <div class="card-footer">
+                    <div class="stats small">
+                        <i class="material-icons">flag</i> In {{ state.name }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
+            <div class="card card-stats">
+                <div class="card-header card-header-primary card-header-icon">
+                    <div class="card-icon">
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <p class="card-category">Positive Tests</p>
+                    <h3 class="card-title text-white">{{ positive }}</h3>
+                </div>
+                <div class="card-footer">
+                    <div class="stats small">
+                        <i class="material-icons">flag</i> In {{ state.name }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
+            <div class="card card-stats">
+                <div class="card-header card-header-secondary card-header-icon">
+                    <div class="card-icon">
+                        <i class="fas fa-minus"></i>
+                    </div>
+                    <p class="card-category">Negative Tests</p>
+                    <h3 class="card-title text-white">{{ negative }}</h3>
+                </div>
+                <div class="card-footer">
+                    <div class="stats small">
+                        <i class="material-icons">flag</i> In {{ state.name }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
+            <div class="card card-stats">
+                <div class="card-header card-header-info card-header-icon">
+                    <div class="card-icon">
+                        <i class="fas fa-flag-usa"></i>
+                    </div>
+                    <p class="card-category"><strong>{{ state.name }} </strong> severity</p>
+                    <h3 class="card-title text-white">{{ state_rank }}<sup>{{ state_rank_sup }}</sup><sub
+                            class="text-secondary"> / 50</sub></h3>
+                </div>
+                <div class="card-footer">
+                    <div class="stats small">
+                        <i class="material-icons">flag</i> In the USA
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="row p-0 m-0">
         <div class="card pt-2">
@@ -239,74 +307,6 @@ body.modal-open[style] {
                     <div class="stats pt-0 mx-auto">
                         <i class="material-icons text-danger">warning</i>
                         <a href="#pablo" class="danger-link">More information below!</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
-            <div class="card card-stats">
-                <div class="card-header card-header-info card-header-icon">
-                    <div class="card-icon">
-                        <i class="fas fa-flag-usa"></i>
-                    </div>
-                    <p class="card-category"><strong>{{ state.name }} </strong> severity</p>
-                    <h3 class="card-title text-white">{{ state_rank }}<sup>{{ state_rank_sup }}</sup><sub
-                            class="text-secondary"> / 50</sub></h3>
-                </div>
-                <div class="card-footer">
-                    <div class="stats small">
-                        <i class="material-icons">flag</i> In the USA
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
-            <div class="card card-stats">
-                <div class="card-header card-header-warning card-header-icon">
-                    <div class="card-icon">
-                        <i class="material-icons">location_city</i>
-                    </div>
-                    <p class="card-category"><strong>{{ county.name }} </strong> severity</p>
-                    <h3 class="card-title text-white">{{ county_rank }}<sup>{{ county_rank_sup }}</sup><sub
-                            class="text-secondary"> / {{ state_total_counties }}</sub></h3>
-                </div>
-                <div class="card-footer">
-                    <div class="stats small">
-                        <i class="material-icons">flag</i> In {{ state.name }}
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
-            <div class="card card-stats">
-                <div class="card-header card-header-primary card-header-icon">
-                    <div class="card-icon">
-                        <i class="fas fa-plus"></i>
-                    </div>
-                    <p class="card-category">Positive Tests</p>
-                    <h3 class="card-title text-white">{{ positive }}</h3>
-                </div>
-                <div class="card-footer">
-                    <div class="stats small">
-                        <i class="material-icons">flag</i> In {{ state.name }}
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
-            <div class="card card-stats">
-                <div class="card-header card-header-secondary card-header-icon">
-                    <div class="card-icon">
-                        <i class="fas fa-minus"></i>
-                    </div>
-                    <p class="card-category">Negative Tests</p>
-                    <h3 class="card-title text-white">{{ negative }}</h3>
-                </div>
-                <div class="card-footer">
-                    <div class="stats small">
-                        <i class="material-icons">flag</i> In {{ state.name }}
                     </div>
                 </div>
             </div>
