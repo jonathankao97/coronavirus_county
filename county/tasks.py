@@ -44,7 +44,6 @@ def push_data(*args, **kwargs):
         county.set_deaths(helper(county.get_deaths(), county.today_delta_deaths))
 
 
-
 @shared_task(name="send_emails")
 def send_emails(*args, **kwargs):
     for email in Email.objects.all():
