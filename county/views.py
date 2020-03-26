@@ -101,15 +101,8 @@ def mail(request):
     return render(request, 'material-design-email-template/material-design-email-template/material-design.html')
 
 
-def home(request):
-    # return HttpResponseRedirect("http://clearcov19.com/county/103/")
-    return render(request, 'test.html')
-
-
 def test(request):
-    # return HttpResponseRedirect("http://clearcov19.com/county/103/")
-    return redirect('data', 103)
-    # return render(request, 'test.html')
+    return render(request, 'test.html')
 
 
 def hello(request):

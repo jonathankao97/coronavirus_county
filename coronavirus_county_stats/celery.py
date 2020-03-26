@@ -27,11 +27,11 @@ app.conf.beat_schedule = {
         'schedule': crontab(minute='0', hour='7'),
         'args': ()
     },
-    # 'send_emails': {
-    #     'task': 'send_emails',
-    #     'schedule': crontab(minute=0, hour='14'),
-    #     'args': (),
-    # },
+    'send_emails': {
+        'task': 'send_emails',
+        'schedule': crontab(minute=0, hour='14'),
+        'args': (),
+    },
     'update_test_cases': {
         'task': 'update_test_cases',
         'schedule': crontab(minute=0, hour='*/1'),

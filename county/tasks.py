@@ -76,7 +76,7 @@ def send_emails(*args, **kwargs):
 
 
 
-        html_message = render_to_string('email.html',
+        html_message = render_to_string('email_template.html',
                                         {'county': email.county,
                                          'confirmed': confirmed_list[-1],
                                          'deaths': deaths_list[-1],
