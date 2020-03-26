@@ -118,6 +118,7 @@ def data(request, county_id):
     sups = ["aux", "st", "nd", "rd", "th"]
     county = County.objects.get(id=county_id)
     confirmed = county.get_confirmed()
+    confirmed.append(county.today_delta_confirmed)
     print(confirmed)
     beg = max(0, len(confirmed)-90)
     confirmed = confirmed[beg:]
@@ -134,6 +135,7 @@ def data(request, county_id):
     if len(confirmed) >= 2 and confirmed[-2] != 0:
         confirmed_increase = int(float(confirmed_deltas[0] * 100) / confirmed[-2])
     deaths = county.get_deaths()
+    deaths.append(county.today_delta_deaths)
     beg = max(0, len(deaths) - 90)
     deaths = deaths[beg:]
     for i in range(0, len(deltas)):
@@ -149,8 +151,8 @@ def data(request, county_id):
     state_rank = int(county.state.get_state_ranking()[-1])
     context = {
         'confirmed': confirmed,
-        'current_confirmed': confirmed[-1],
-        'current_deaths': deaths[-1],
+        'current_confirmed': county.today_delta_confirmed,
+        'current_deaths': county.today_delta_deaths,
         'confirmed_deltas': confirmed_deltas,
         'confirmed_increase': confirmed_increase,
         'deaths': deaths,
