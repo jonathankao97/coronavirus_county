@@ -77,6 +77,7 @@ def unsubscribe(request):
     }
     return render(request, 'unsubscribe.html', context)
 
+
 def mail_signup(request, county_id):
     county = County.objects.filter(id=county_id)[0]
     if request.method == 'POST':
@@ -94,6 +95,7 @@ def mail_signup(request, county_id):
         'county': county,
     }
     return render(request, 'mail_signup.html', context)
+
 
 def mail(request):
     return render(request, 'material-design-email-template/material-design-email-template/material-design.html')
@@ -120,7 +122,7 @@ def data(request, county_id):
     confirmed = county.get_confirmed()
     confirmed.append(county.today_delta_confirmed)
     print(confirmed)
-    beg = max(0, len(confirmed)-90)
+    beg = max(0, len(confirmed) - 90)
     confirmed = confirmed[beg:]
     deltas = [1, 7, 30]
     confirmed_deltas = []
@@ -128,7 +130,7 @@ def data(request, county_id):
     for i in range(0, len(deltas)):
         delta = deltas[i]
         if len(confirmed) > delta:
-            confirmed_deltas.append(confirmed[-1] - confirmed[-(1+delta)])
+            confirmed_deltas.append(confirmed[-1] - confirmed[-(1 + delta)])
         else:
             confirmed_deltas.append("n/a")
     confirmed_increase = 0
@@ -165,6 +167,8 @@ def data(request, county_id):
         'state_total_counties': len(County.objects.filter(state=county.state)),
         'state_initials': us_state_abbrev[county.state.name],
         'county': county,
+        'positive': county.state.positive_tests,
+        'negative': county.state.negative_tests,
         'state': county.state,
         'x_axis': []
     }
@@ -216,6 +220,7 @@ def search1(request):
 
     return render(request, 'ajax_search1.html', {'queries': list(queries)})
 
+
 def feedback(request):
     print(request.POST)
 
@@ -228,7 +233,7 @@ def feedback(request):
     from county.models import Feedback
     sender_feedback = Feedback(email=email, first_name=first_name, last_name=last_name, feedback=feedback)
     sender_feedback.save()
-    
+
     return render(request, 'base.html')
 
 
