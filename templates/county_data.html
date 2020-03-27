@@ -22,6 +22,7 @@ body.modal-open[style] {
 
 
 
+
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <div class="content my-0">
@@ -323,6 +324,7 @@ body.modal-open[style] {
     </div>
 </div>
 <script>
+    var stored_time = 7;
     var confirmed = {{ confirmed }}
     var confirmed_deltas = {{ confirmed_deltas | safe}}
     var deaths = {{ deaths }}
@@ -363,11 +365,10 @@ body.modal-open[style] {
  $(document).ready(function(){
         $('input[type="checkbox"]').click(function(){
             if($(this).is(":checked")){
-                confirmed = {{ log_confirmed }}
-                deaths = {{ log_deaths }}
+                make_charts(stored_time, true);
             }
             else if($(this).is(":not(:checked)")){
-
+                make_charts(stored_time);
             }
         });
     });
@@ -375,6 +376,7 @@ body.modal-open[style] {
 $.clearInput = function () {
         $('form').find('input[type=text], input[type=password], input[type=number], input[type=email], textarea').val('');
 };
+
 
 
 </script>
