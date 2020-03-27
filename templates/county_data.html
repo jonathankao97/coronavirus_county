@@ -18,6 +18,10 @@ body.modal-open[style] {
     /* reference: http://stackoverflow.com/a/26500272/2259400 */
 }
 
+
+
+
+
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <div class="content my-0">
@@ -172,7 +176,7 @@ body.modal-open[style] {
                 </div>
             </div>
         </div>
-         <div class="order-6 order-xl-3 col-xl-4 col-lg-6 col-md-6 col-sm-6">
+        <div class="order-6 order-xl-3 col-xl-4 col-lg-6 col-md-6 col-sm-6">
             <div class="card card-stats">
                 <div class="card-header card-header-warning card-header-icon">
                     <div class="card-icon">
@@ -278,6 +282,13 @@ body.modal-open[style] {
                                 <div class="stats">
                                     <i class="material-icons">access_time</i> updated 2 hours ago
                                 </div>
+                                <div class="togglebutton text-right">
+                                    <label>
+                                        <span class="text-secondary">Log-Scale </span>
+                                        <input type="checkbox">
+                                        <span class="toggle"></span>
+                                    </label>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -304,7 +315,7 @@ body.modal-open[style] {
                 <div class="card-footer pt-0">
                     <div class="stats pt-0 mx-auto">
                         <i class="material-icons text-danger">warning</i>
-                        <a href="#pablo" class="danger-link">More information below!</a>
+                        <a href="#pablo" class="danger-link">More information coming!</a>
                     </div>
                 </div>
             </div>
@@ -349,11 +360,21 @@ body.modal-open[style] {
     }
 });
 
+ $(document).ready(function(){
+        $('input[type="checkbox"]').click(function(){
+            if($(this).is(":checked")){
+                confirmed = {{ log_confirmed }}
+                deaths = {{ log_deaths }}
+            }
+            else if($(this).is(":not(:checked)")){
+
+            }
+        });
+    });
+
 $.clearInput = function () {
         $('form').find('input[type=text], input[type=password], input[type=number], input[type=email], textarea').val('');
 };
-
-
 
 
 </script>

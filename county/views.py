@@ -3,6 +3,7 @@ from county.models import City, County, State, Email
 from django.utils import timezone
 from datetime import timedelta
 from county.forms import EmailSignUp
+from math import log
 
 us_state_abbrev = {
     'Alabama': 'AL',
@@ -147,10 +148,12 @@ def data(request, county_id):
     context = {
         'confirmed': confirmed,
         'current_confirmed': county.today_delta_confirmed,
+        'log_confirmed': log_arr(confirmed),
         'current_deaths': county.today_delta_deaths,
         'confirmed_deltas': confirmed_deltas,
         'confirmed_increase': confirmed_increase,
         'deaths': deaths,
+        'log_deaths': log_arr(deaths),
         'deaths_deltas': deaths_deltas,
         'death_increase': deaths_increase,
         'county_rank': county_rank,
@@ -171,9 +174,19 @@ def data(request, county_id):
         context['x_axis'].append(now.strftime('%-m/%-d'))
         now -= timedelta(1)
     context['x_axis'].reverse()
-
+    print(context['log_confirmed'])
     print(context)
     return render(request, 'county_data.html', context)
+
+
+def log_arr(array):
+    log_deaths = []
+    for val in array:
+        if val == 0:
+            log_deaths.append(0)
+        else:
+            log_deaths.append(int(log(val, 2)))
+    return log_deaths
 
 
 def subscribe(request):
