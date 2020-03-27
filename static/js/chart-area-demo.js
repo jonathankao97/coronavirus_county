@@ -28,16 +28,28 @@ function number_format(number, decimals, dec_point, thousands_sep) {
 var myLineChart
 var myOtherLineChart
 // Area Chart Example
-function make_charts(slice){
+function make_charts(slice, log=false){
+if (slice==7){
+    rad = 5;
+} else if (slice==30){
+    rad = 4;
+} else if (slice==90){
+    rad = 3;
+}
 beg = x_axis.length - Math.min(slice, x_axis.length)
 if (myLineChart){
     myLineChart.destroy();
+    if(!log){
     myOtherLineChart.destroy();
     }
+}
 var canvas = document.getElementById("myAreaChart");
 canvas.height=200;
+
+if(!log){
 var canvas1 = document.getElementById("myDeathChart");
 canvas1.height=200;
+
 myLineChart = new Chart(canvas, {
   type: 'line',
   data: {
@@ -47,10 +59,10 @@ myLineChart = new Chart(canvas, {
       lineTension: 0,
       backgroundColor: "rgba(78, 115, 223, 0.05)",
       borderColor: "rgba(255, 255, 255, 0.8)",
-      pointRadius: 5,
+      pointRadius: rad,
       pointBackgroundColor: "rgba(255, 255, 255, .8)",
       pointBorderColor: "rgba(255, 255, 255, 0)",
-      pointHoverRadius: 4,
+      pointHoverRadius: rad-1,
       pointHoverBackgroundColor: "rgba(255, 255, 255, .8)",
       pointHoverBorderColor: "rgba(255, 255, 255, 0)",
       pointHitRadius: 10,
@@ -84,20 +96,20 @@ myLineChart = new Chart(canvas, {
         }
       }],
       yAxes: [{
+
         ticks: {
-          maxTicksLimit: 5,
+          precision: 0,
           padding: 20,
           min: 0,
-          precision: 0,
+         },
           // Include a dollar sign in the ticks
-        },
         gridLines: {
           color: "rgba(255, 255, 255, 0.4)",
           zeroLineColor: "rgba(255, 255, 255, 0.4)",
           drawBorder: false,
           borderDash: [2],
           zeroLineBorderDash: [2]
-        }
+        },
       }],
     },
     legend: {
@@ -132,10 +144,10 @@ myOtherLineChart = new Chart(canvas1, {
       lineTension: 0,
       backgroundColor: "rgba(78, 115, 223, 0.05)",
       borderColor: "rgba(255, 255, 255, 0.8)",
-      pointRadius: 5,
+      pointRadius: rad,
       pointBackgroundColor: "rgba(255, 255, 255, .8)",
       pointBorderColor: "rgba(255, 255, 255, 0)",
-      pointHoverRadius: 4,
+      pointHoverRadius: rad-1,
       pointHoverBackgroundColor: "rgba(255, 255, 255, .8)",
       pointHoverBorderColor: "rgba(255, 255, 255, 0)",
       pointHitRadius: 10,
@@ -207,5 +219,104 @@ myOtherLineChart = new Chart(canvas1, {
     }
   }
 });
+} else {
+myLineChart = new Chart(canvas, {
+  type: 'line',
+  data: {
+    labels: x_axis.slice(beg),
+    datasets: [{
+      label: "Confirmed",
+      lineTension: 0,
+      backgroundColor: "rgba(78, 115, 223, 0.05)",
+      borderColor: "rgba(255, 255, 255, 0.8)",
+      pointRadius: rad,
+      pointBackgroundColor: "rgba(255, 255, 255, .8)",
+      pointBorderColor: "rgba(255, 255, 255, 0)",
+      pointHoverRadius: rad-1,
+      pointHoverBackgroundColor: "rgba(255, 255, 255, .8)",
+      pointHoverBorderColor: "rgba(255, 255, 255, 0)",
+      pointHitRadius: 10,
+      pointBorderWidth: 2,
+      data: confirmed.slice(beg),
+    }],
+  },
+  options: {
+    maintainAspectRatio: false,
+    layout: {
+      padding: {
+        left: 10,
+        right: 25,
+        top: 5,
+        bottom: 0
+      }
+    },
+    scales: {
+      xAxes: [{
+        time: {
+          unit: 'date'
+        },
+        gridLines: {
+          display: false,
+          drawBorder: false
+        },
+        ticks: {
+          maxTicksLimit: 7,
+          fontSize: 13,
+          fontFamily: "Helvetica"
+        }
+      }],
+      yAxes: [{
+      type: 'logarithmic',
+        ticks: {
+          max: 100000,
+          padding: 20,
+          min: 0,
+          callback: function (value, index, values) {
+             return Number(value.toString());//pass tick values as a string into Number function
+         }
+         },
+          // Include a dollar sign in the ticks
+        gridLines: {
+          color: "rgba(255, 255, 255, 0.4)",
+          zeroLineColor: "rgba(255, 255, 255, 0.4)",
+          drawBorder: false,
+          borderDash: [2],
+          zeroLineBorderDash: [2]
+        },
+        afterBuildTicks: function (chartObj) { //Build ticks labelling as per your need
+        chartObj.ticks = [];
+        chartObj.ticks.push(0);
+        chartObj.ticks.push(10);
+        chartObj.ticks.push(100);
+        chartObj.ticks.push(1000);
+        chartObj.ticks.push(10000);
+        chartObj.ticks.push(100000);
+        }
+      }],
+    },
+    legend: {
+      display: false
+    },
+    tooltips: {
+      backgroundColor: "rgb(255,255,255)",
+      bodyFontColor: "#858796",
+      titleMarginBottom: 10,
+      titleFontColor: '#6e707e',
+      titleFontSize: 14,
+      borderColor: '#dddfeb',
+      borderWidth: 1,
+      xPadding: 15,
+      yPadding: 15,
+      displayColors: false,
+      intersect: false,
+      mode: 'index',
+      caretPadding: 10,
+      callbacks: {
+      }
+    }
+  }
+});
 }
+}
+
 make_charts(7)

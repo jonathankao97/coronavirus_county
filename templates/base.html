@@ -193,6 +193,7 @@
             var id = $(e.target).attr("id")
             if (id != undefined){
             make_charts(parseInt(id));
+            stored_time = parseInt(id);
             }
     })
 
@@ -256,13 +257,8 @@
         });
     });
     function searchSuccess1(data, textStatus, jqXHR){
-
     $('#search-results1').html(data);
     }
-
-
-
-
 </script>
 </body>
 </html>
