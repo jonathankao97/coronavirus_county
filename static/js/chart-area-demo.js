@@ -45,11 +45,11 @@ if (myLineChart){
 }
 var canvas = document.getElementById("myAreaChart");
 canvas.height=200;
-
+console.log("here")
 if(!log){
+console.log("bye")
 var canvas1 = document.getElementById("myDeathChart");
 canvas1.height=200;
-
 myLineChart = new Chart(canvas, {
   type: 'line',
   data: {
@@ -220,6 +220,7 @@ myOtherLineChart = new Chart(canvas1, {
   }
 });
 } else {
+console.log("hi")
 myLineChart = new Chart(canvas, {
   type: 'line',
   data: {
@@ -268,11 +269,18 @@ myLineChart = new Chart(canvas, {
       yAxes: [{
       type: 'logarithmic',
         ticks: {
-          max: 100000,
+          max: 10000,
           padding: 20,
           min: 0,
-          callback: function (value, index, values) {
-             return Number(value.toString());//pass tick values as a string into Number function
+           callback: function (value, index, values) {
+             if (value === 1000000) return "1M";
+             if (value === 100000) return "100K";
+             if (value === 10000) return "10K";
+             if (value === 1000) return "1K";
+             if (value === 100) return "100";
+             if (value === 10) return "10";
+             if (value === 0) return "0";
+             return null;
          }
          },
           // Include a dollar sign in the ticks
@@ -282,15 +290,6 @@ myLineChart = new Chart(canvas, {
           drawBorder: false,
           borderDash: [2],
           zeroLineBorderDash: [2]
-        },
-        afterBuildTicks: function (chartObj) { //Build ticks labelling as per your need
-        chartObj.ticks = [];
-        chartObj.ticks.push(0);
-        chartObj.ticks.push(10);
-        chartObj.ticks.push(100);
-        chartObj.ticks.push(1000);
-        chartObj.ticks.push(10000);
-        chartObj.ticks.push(100000);
         }
       }],
     },
