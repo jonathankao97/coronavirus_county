@@ -9,4 +9,5 @@ urlpatterns = [
     path('unsubscribe/', views.unsubscribe, name='unsubscribe'),
     path('hello/', views.hello),
     path('feedback/', views.feedback, name='feedback'),
+    path('test/', views.test)
 ]
