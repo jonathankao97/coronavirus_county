@@ -324,6 +324,7 @@ body.modal-open[style] {
     </div>
 </div>
 <script>
+    var log = false;
     var stored_time = 7;
     var confirmed = {{ confirmed }}
     var confirmed_deltas = {{ confirmed_deltas | safe}}
@@ -365,11 +366,12 @@ body.modal-open[style] {
  $(document).ready(function(){
         $('input[type="checkbox"]').click(function(){
             if($(this).is(":checked")){
-                make_charts(stored_time, true);
+                log = true;
             }
             else if($(this).is(":not(:checked)")){
-                make_charts(stored_time);
+                log = false;
             }
+            make_charts(stored_time, log);
         });
     });
 
