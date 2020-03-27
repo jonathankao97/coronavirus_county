@@ -10,6 +10,10 @@
     .compressed {
     line-height: .7;
     }
+
+
+
+
     </style>
     <meta charset="utf-8"/>
     <link rel="apple-touch-icon" sizes="76x76" href="{% static 'img/apple-icon.png' %}">
@@ -37,64 +41,30 @@
 
 
 
-
-
     </script>
 
 </head>
 <body class="dark-edition">
 <div class="wrapper">
-    <div class="sidebar d-lg-none" data-color="purple" data-background-color="black">
-        <!--
-          Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
-
-          Tip 2: you can also add an image using data-image tag
-      -->
-        <div class="sidebar-wrapper">
-            <ul class="nav">
-            </ul>
-        </div>
-    </div>
     <div class="main-panel h-100 w-100">
-        <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top " id="navigation-example">
+        <nav class="navbar navbar-transparent navbar-absolute fixed-top navbar-expand" id="navigation-example">
             <div class="container-fluid">
                 <div class="navbar-wrapper mt-0 pt-0">
                     <a class="navbar-brand" href={% url 'test' %}>
                     <img width="40" height="40" src="{% static 'biology.png' %}" alt="virus">
                     &nbsp;Clear Cov-19</a>
                 </div>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
-                        aria-label="Toggle navigation" data-target="#navigation-example">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="navbar-toggler-icon icon-bar"></span>
-                    <span class="navbar-toggler-icon icon-bar"></span>
-                    <span class="navbar-toggler-icon icon-bar"></span>
-                </button>
-                <div class="collapse navbar-collapse justify-content-end">
+                <div class="justify-content-end">
                     <ul class="navbar-nav">
-                        <li class="nav-item ">
-                            <div class="input-group no-border">
-                                <input autocomplete="off" spellcheck="false" autocapitalize="off" type="text"
-                                       class="form-control"
-                                       id="top_search" name="search" placeholder="County or Zip code"/>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown open">
-                            <a class="nav-link pl-0" href="javscript:void(0)" id="navbarDropdownMenuLink"
-                               aria-haspopup="true" aria-expanded="true">
+                        <li class="nav-item {{ search_vis }}">
+                             <a class="nav-link text-secondary" href="/">
                                 <i class="material-icons">search</i>
-                                <div class="ripple-container"></div>
                             </a>
-                            <div class="dropdown-menu dropdown-menu-right" id="search-results1"
-                                 aria-labelledby="navbarDropdownMenuLink">
-                            </div>
                         </li>
-                        <li class="nav-item">
-                            <a type="submit" data-toggle="modal" class="nav-link" href="#about_clear_cov">
+
+                        <li class="nav-item {{ is_vis }}">
+                            <a data-toggle="modal" class="nav-link text-secondary" href="#about_clear_cov">
                                 <i class="material-icons">info_outline</i>
-                                <p class="d-lg-none d-md-block">
-                                    Site Info
-                                </p>
                             </a>
                         </li>
 
@@ -118,93 +88,8 @@
                                     <form onsubmit="return false;">
                                         <div class="modal-body pt-2 my-0" style="border:none;">
                                             <div class="card-body">
-                                                <div class="row">
-                                                    <h5 class="text-success mx-auto"><strong>A site for those looking
-                                                        for...</strong></h5>
-                                                </div>
-                                                <hr class="mt-0">
-                                                <div class="row">
-                                                    <ul>
-                                                        <li>
-                                                            <h7 class="font-weight-light mx-auto text-center"><span
-                                                                    class="text-white">Up-to-date</span> statistics on
-                                                                COVID-19 for your own county
-                                                            </h7>
-                                                        </li>
-                                                        <li>
-                                                            <h7 class="font-weight-light mx-auto text-center">
-                                                                Quick search to look
-                                                                up <span class="text-white">any county</span> in the US
-                                                            </h7>
-                                                        </li>
-                                                        <li>
-                                                            <h7 class="font-weight-light mx-auto text-center">Daily
-                                                                <span class="text-white">email updates</span> on how
-                                                                Coronavirus is changing in your area
-                                                            </h7>
-                                                        </li>
-                                                        <li>
-                                                            <h7 class="font-weight-light mx-auto text-center">A
-                                                                minimalist and <span
-                                                                        class="text-white">user-friendly</span>
-                                                                interface &nbsp;<i class="fas fa-smile"></i></h7>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="row mt-4">
-                                                    <h5 class="text-success mx-auto"><strong>BACKGROUND</strong></h5>
-                                                </div>
-                                                <hr class="mt-0">
-                                                <div class="row">
-                                                    <h7 class="font-weight-light mx-auto ">The story goes: two high
-                                                        school seniors, anchored to their houses due to mandatory school
-                                                        shutdown, decide to relieve their boredom with this...
-                                                    </h7>
-                                                </div>
-                                                <div class="row mt-2">
-                                                    <h7 class="text-success font-weight-light mx-auto text-center">But
-                                                        no really! We made this for YOU. Our own experiences
-                                                        and stories from close relatives regarding the virus have led us
-                                                        to do our part as global citizens.
-                                                    </h7>
-                                                </div>
-                                                <div class="row mt-4">
-                                                    <h5 class="text-success mx-auto"><strong>LASTLY...</strong></h5>
-                                                </div>
-                                                <hr class="mt-0">
-                                                <div class="row mt-0">
-                                                    <h7 class="text-white font-weight-light mx-auto text-center">
-                                                        This site wouldn't have been possible without the following data
-                                                        sources:
-                                                    </h7>
-                                                      <div class="col-4 text-center px-0" >
-                                                        <a class="btn-warning btn text-white mt-3 px-4"
-                                                                href="http://coronavirus.1point3acres.com/en"
-                                                                style="line-height:1">
-                                                            1.3acres
-                                                        </a>
-                                                    </div>
-                                                     <div class="col-4 text-center px-0">
-                                                        <a class="btn-info btn text-white mt-3 px-4"
-                                                                href="https://covidtracking.com/"
-                                                                style="line-height:1">
-                                                            Covid Tracking
-                                                        </a>
-                                                    </div>
-                                                     <div class="col-4 text-center px-0">
-                                                        <a class="btn-primary btn text-white mt-3 px-4"
-                                                                href="http://simplemaps.com/data/us-zips"
-                                                                style="line-height:1">
-                                                            Simple Maps
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <div class="row mt-0">
-                                                    <a href="https://github.com/jonathankao97/coronavirus_county"
-                                                       class="text-primary mx-auto mt-2"><u>View our GitHub</u></a>
-                                                </div>
+                                                {% include 'info.html' %}
                                             </div>
-
                                         </div>
                                         <div class="modal-footer pt-0 mt-0" style="border:none;">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
@@ -215,13 +100,9 @@
                             </div>
                         </div>
 
-
-                        <li class="nav-item">
-                            <a type="submit" data-toggle="modal" class="nav-link" href="#about_us_page">
+                        <li class="nav-item {{is_vis}}">
+                            <a data-toggle="modal" class="nav-link text-secondary" href="#about_us_page">
                                 <i class="material-icons">supervisor_account</i>
-                                <p class="d-lg-none d-md-block">
-                                    About Us
-                                </p>
                             </a>
                         </li>
 
@@ -245,24 +126,8 @@
                                     <form onsubmit="return false;">
                                         <div class="modal-body pt-2 my-0" style="border:none;">
                                             <div class="card-body">
-                                                <div class="row">
-                                                    <img class="mx-auto" style="border-radius: 8px;"
-                                                         src="/static/jonathanvictor.png" alt="Jonathan Kao"
-                                                         height="300" width="450">
-                                                    <h7 class="text-white mx-auto"></h7>
-                                                </div>
-                                                <div class="row">
-                                                    <h5 class="text-white mx-auto">Jonathan Kao</h5>
-                                                    <h5 class="text-white mx-auto">Victor Lin</h5>
-                                                </div>
-                                                <div class="row">
-                                                    <h7 class="text-white mx-auto">Two high school seniors who mess
-                                                        around with all things web development, AI, and computer
-                                                        science!
-                                                    </h7>
-                                                </div>
+                                                {% include 'about_us.html' %}
                                             </div>
-
                                         </div>
                                         <div class="modal-footer pt-0 mt-0" style="border:none;">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
@@ -273,13 +138,9 @@
                             </div>
                         </div>
 
-
-                        <li class="nav-item">
-                            <a type="submit" data-toggle="modal" class="nav-link" href="#feedback_form">
+                        <li class="nav-item {{is_vis}}">
+                            <a data-toggle="modal" class="nav-link text-secondary" href="#feedback_form">
                                 <i class="material-icons">mail_outline</i>
-                                <p class="d-lg-none d-md-block">
-                                    Contact
-                                </p>
                             </a>
                         </li>
                         <div class="modal fade" id="feedback_form" role="dialog" tabindex="-1" data-backdrop="false">
@@ -299,62 +160,14 @@
                                     </div>
                                     <div class="modal-header mx-3 py-0 my-0"
                                          style="border-color:#8f35aa;border-width:2px;"></div>
-                                    <form onsubmit="return false;">
-                                        <div class="modal-body pt-2 my-0" style="border:none;">
-                                            <div class="card-body">
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group" style="width:100%">
-                                                            <label class="bmd-label-floating">Fist Name</label>
-                                                            <input type="text" class="form-control" id="first_name"
-                                                                   required>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group" style="width:100%">
-                                                            <label class="bmd-label-floating">Last Name</label>
-                                                            <input type="text" class="form-control" id="last_name"
-                                                                   required>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="form-group" style="width: 100%">
-                                                            <label class="bmd-label-floating">Email address</label>
-                                                            <input type="email" class="form-control" id="email"
-                                                                   required>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="form-group" style="width: 100%">
-                                                            <label class="bmd-label-floating">Feedback</label>
-                                                            <textarea class="form-control" rows="5"
-                                                                      id="feedback"></textarea>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer pt-0 mt-0" style="border:none;">
-                                            <button type="submit" class="btn btn-primary pull-right" id="target1">
-                                                Submit
-                                            </button>
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
-                                            </button>
-                                        </div>
-                                    </form>
+                                    {% include 'feedback_form.html' %}
                                 </div>
                             </div>
                         </div>
-                        <li class="nav-item">
-                            <a class="nav-link d-flex" href="https://ko-fi.com/victorlin">
+
+                        <li class="nav-item pr-2">
+                            <a class="nav-link d-flex text-white" href="https://ko-fi.com/victorlin">
                                 <img width="30" height="30" src="{% static 'kofi.gif' %}" alt="kofi">
-                                <p class="d-lg-none d-md-block ml-3">
-                                    Buy us a coffee!
-                                </p>
                             </a>
                         </li>
                     </ul>
@@ -426,20 +239,17 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
 </script>
 
 <script>
     $("#top_search").keyup(function() {
+
+        if ($('#top_search').val().length < 3){
+            $('#search-results1').addClass('d-none');
+        } else {
+            $('#search-results1').removeClass('d-none');
+            $('#dropdownMenuLink').dropdown('toggle');
+        }
         $.ajax({
             type: "POST",
             url: "/county/search1/",
@@ -452,8 +262,13 @@
         });
     });
     function searchSuccess1(data, textStatus, jqXHR){
+
     $('#search-results1').html(data);
     }
+
+
+
+
 </script>
 </body>
 </html>

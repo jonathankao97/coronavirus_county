@@ -102,7 +102,7 @@ def mail(request):
 
 
 def test(request):
-    return render(request, 'test.html')
+    return render(request, 'test.html', context={'search_vis': 'd-none'})
 
 
 def hello(request):
@@ -163,7 +163,8 @@ def data(request, county_id):
         'positive': county.state.positive_tests,
         'negative': county.state.negative_tests,
         'state': county.state,
-        'x_axis': []
+        'x_axis': [],
+        'is_vis': 'd-none',
     }
     now = timezone.localtime(timezone.now())
     for i in range(0, min(len(confirmed), 90)):
