@@ -114,7 +114,7 @@ def data(request, county_id):
     sups = ["aux", "st", "nd", "rd", "th"]
     county = County.objects.get(id=county_id)
     confirmed = county.get_confirmed()
-    confirmed.append(300)
+    confirmed.append(county.today_delta_confirmed)
     print(confirmed)
     beg = max(0, len(confirmed) - 90)
     confirmed = confirmed[beg:]
