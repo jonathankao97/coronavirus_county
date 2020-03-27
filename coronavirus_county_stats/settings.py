@@ -51,6 +51,8 @@ INSTALLED_APPS = [
     'county',
 ]
 
+SECURE_SSL_REDIRECT = True
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
