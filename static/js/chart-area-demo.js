@@ -28,7 +28,7 @@ function number_format(number, decimals, dec_point, thousands_sep) {
 var myLineChart
 var myOtherLineChart
 // Area Chart Example
-function make_charts(slice, log=false){
+function make_charts(slice, log=false, toggle_log=false){
 if (slice==7){
     rad = 5;
 } else if (slice==30){
@@ -39,17 +39,12 @@ if (slice==7){
 beg = x_axis.length - Math.min(slice, x_axis.length)
 if (myLineChart){
     myLineChart.destroy();
-    if(!log){
-    myOtherLineChart.destroy();
-    }
 }
 var canvas = document.getElementById("myAreaChart");
 canvas.height=200;
 console.log("here")
 if(!log){
 console.log("bye")
-var canvas1 = document.getElementById("myDeathChart");
-canvas1.height=200;
 myLineChart = new Chart(canvas, {
   type: 'line',
   data: {
@@ -110,91 +105,6 @@ myLineChart = new Chart(canvas, {
           borderDash: [2],
           zeroLineBorderDash: [2]
         },
-      }],
-    },
-    legend: {
-      display: false
-    },
-    tooltips: {
-      backgroundColor: "rgb(255,255,255)",
-      bodyFontColor: "#858796",
-      titleMarginBottom: 10,
-      titleFontColor: '#6e707e',
-      titleFontSize: 14,
-      borderColor: '#dddfeb',
-      borderWidth: 1,
-      xPadding: 15,
-      yPadding: 15,
-      displayColors: false,
-      intersect: false,
-      mode: 'index',
-      caretPadding: 10,
-      callbacks: {
-      }
-    }
-  }
-});
-
-myOtherLineChart = new Chart(canvas1, {
- type: 'line',
-  data: {
-    labels: x_axis.slice(beg),
-    datasets: [{
-      label: "Deaths",
-      lineTension: 0,
-      backgroundColor: "rgba(78, 115, 223, 0.05)",
-      borderColor: "rgba(255, 255, 255, 0.8)",
-      pointRadius: rad,
-      pointBackgroundColor: "rgba(255, 255, 255, .8)",
-      pointBorderColor: "rgba(255, 255, 255, 0)",
-      pointHoverRadius: rad-1,
-      pointHoverBackgroundColor: "rgba(255, 255, 255, .8)",
-      pointHoverBorderColor: "rgba(255, 255, 255, 0)",
-      pointHitRadius: 10,
-      pointBorderWidth: 2,
-      data: deaths.slice(beg),
-    }],
-  },
-  options: {
-    maintainAspectRatio: false,
-    layout: {
-      padding: {
-        left: 10,
-        right: 25,
-        top: 5,
-        bottom: 0
-      }
-    },
-    scales: {
-      xAxes: [{
-        time: {
-          unit: 'date'
-        },
-        gridLines: {
-          display: false,
-          drawBorder: false
-        },
-        ticks: {
-          maxTicksLimit: 7,
-          fontSize: 13,
-          fontFamily: "Helvetica"
-        }
-      }],
-      yAxes: [{
-        ticks: {
-          maxTicksLimit: 5,
-          padding: 20,
-          min:0,
-          precision: 0,
-          // Include a dollar sign in the ticks
-        },
-        gridLines: {
-          color: "rgba(255, 255, 255, 0.4)",
-          zeroLineColor: "rgba(255, 255, 255, 0.4)",
-          drawBorder: false,
-          borderDash: [2],
-          zeroLineBorderDash: [2]
-        }
       }],
     },
     legend: {
@@ -316,6 +226,98 @@ myLineChart = new Chart(canvas, {
   }
 });
 }
+if(!toggle_log){
+if (myOtherLineChart){
+myOtherLineChart.destroy();
+}
+var canvas1 = document.getElementById("myDeathChart");
+canvas1.height=200;
+myOtherLineChart = new Chart(canvas1, {
+ type: 'line',
+  data: {
+    labels: x_axis.slice(beg),
+    datasets: [{
+      label: "Deaths",
+      lineTension: 0,
+      backgroundColor: "rgba(78, 115, 223, 0.05)",
+      borderColor: "rgba(255, 255, 255, 0.8)",
+      pointRadius: rad,
+      pointBackgroundColor: "rgba(255, 255, 255, .8)",
+      pointBorderColor: "rgba(255, 255, 255, 0)",
+      pointHoverRadius: rad-1,
+      pointHoverBackgroundColor: "rgba(255, 255, 255, .8)",
+      pointHoverBorderColor: "rgba(255, 255, 255, 0)",
+      pointHitRadius: 10,
+      pointBorderWidth: 2,
+      data: deaths.slice(beg),
+    }],
+  },
+  options: {
+    maintainAspectRatio: false,
+    layout: {
+      padding: {
+        left: 10,
+        right: 25,
+        top: 5,
+        bottom: 0
+      }
+    },
+    scales: {
+      xAxes: [{
+        time: {
+          unit: 'date'
+        },
+        gridLines: {
+          display: false,
+          drawBorder: false
+        },
+        ticks: {
+          maxTicksLimit: 7,
+          fontSize: 13,
+          fontFamily: "Helvetica"
+        }
+      }],
+      yAxes: [{
+        ticks: {
+          maxTicksLimit: 5,
+          padding: 20,
+          min:0,
+          precision: 0,
+          // Include a dollar sign in the ticks
+        },
+        gridLines: {
+          color: "rgba(255, 255, 255, 0.4)",
+          zeroLineColor: "rgba(255, 255, 255, 0.4)",
+          drawBorder: false,
+          borderDash: [2],
+          zeroLineBorderDash: [2]
+        }
+      }],
+    },
+    legend: {
+      display: false
+    },
+    tooltips: {
+      backgroundColor: "rgb(255,255,255)",
+      bodyFontColor: "#858796",
+      titleMarginBottom: 10,
+      titleFontColor: '#6e707e',
+      titleFontSize: 14,
+      borderColor: '#dddfeb',
+      borderWidth: 1,
+      xPadding: 15,
+      yPadding: 15,
+      displayColors: false,
+      intersect: false,
+      mode: 'index',
+      caretPadding: 10,
+      callbacks: {
+      }
+    }
+  }
+});
+}
+
 }
 
 make_charts(7)
