@@ -179,7 +179,7 @@ myLineChart = new Chart(canvas, {
       yAxes: [{
       type: 'logarithmic',
         ticks: {
-          max: 10000,
+          max: 1000000,
           padding: 20,
           min: 0,
            callback: function (value, index, values) {
