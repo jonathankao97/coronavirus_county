@@ -103,7 +103,8 @@ def mail(request):
 
 
 def test(request):
-    return render(request, 'test.html', context={'search_vis': 'd-none'})
+    return render(request, 'test.html', context={'search_vis': 'd-none',
+                                                 'is_home': True})
 
 
 def hello(request):
@@ -168,6 +169,7 @@ def data(request, county_id):
         'state': county.state,
         'x_axis': [],
         'is_vis': 'd-none',
+        'is_data': True,
     }
     now = timezone.localtime(timezone.now())
     for i in range(0, min(len(confirmed), 90)):
