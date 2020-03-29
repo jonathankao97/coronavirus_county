@@ -15,6 +15,9 @@
 
 
 
+
+
+
     </style>
     <meta charset="utf-8"/>
     <link rel="apple-touch-icon" sizes="76x76" href="{% static 'img/apple-icon.png' %}">
@@ -43,12 +46,15 @@
 
 
 
+
+
+
     </script>
 
 </head>
 <body class="dark-edition">
 <div class="wrapper">
-    <div class="main-panel h-100 w-100">
+    <div class="main-panel h-75 w-100">
         <nav class="navbar navbar-transparent navbar-absolute fixed-top navbar-expand" id="navigation-example">
             <div class="container-fluid">
                 <div class="navbar-wrapper mt-0 pt-0">
@@ -170,18 +176,11 @@
                 </div>
             </div>
         </nav>
-
-
         {% block content %}
         {% endblock %}
-        {% if is_data %}
-        {% include 'comments.html' %}
-        {% endif %}
     </div>
 </div>
-{% if is_home %}
-{% include 'comments.html' %}
-{% endif %}
+<script id="dsq-count-scr" src="//https-www-clearcov19-com.disqus.com/count.js" async></script>
 <script src="{% static 'js/material-dashboard.min.js' %}"></script>
 <script src="{% static 'js/core/popper.min.js' %}"></script>
 <script src="{% static 'js/core/bootstrap-material-design.min.js' %}"></script>
@@ -195,7 +194,6 @@
 <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
 <script src="{% static 'js/chart.js/Chart.min.js' %}"></script>
 <script src="{% static 'js/chart-area-demo.js' %}"></script>
-<script id="dsq-count-scr" src="//https-www-clearcov19-com.disqus.com/count.js" async></script>
 <script>
     $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
             var id = $(e.target).attr("id")
@@ -243,6 +241,9 @@
 
 
 
+
+
+
 </script>
 
 <script>
@@ -268,6 +269,9 @@
     function searchSuccess1(data, textStatus, jqXHR){
     $('#search-results1').html(data);
     }
+
+
+
 
 </script>
 </body>
