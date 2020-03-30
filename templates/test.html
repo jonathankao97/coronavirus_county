@@ -4,7 +4,7 @@
 {% csrf_token %}
 
 <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
-<div class="container-fluid h-50">
+<div class="container-fluid h-100">
     <div class="row align-items-center mb-0">
         <div class="col-xl-8 mx-auto">
             <br><br><br>
@@ -40,6 +40,8 @@
             </div>
         </div>
     </div>
+    <div class="row pt-5"></div>
+    {% include 'comments.html' %}
 </div>
 <script>
     $("#search").keyup(function() {
