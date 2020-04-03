@@ -3,11 +3,11 @@ import re
 import json
 import os
 import django
+from county.models import State
 
 def sync_data():
         os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'coronavirus_county_stats.settings')
         django.setup()
-        from county.models import State
         contents = requests.get('https://covidtracking.com/api/states')
         list = json.loads(contents.content)
 
@@ -86,4 +86,3 @@ def sync_data():
                     state_object.set_positive_negative_hospitalized(state['positive'], state['negative'], state['hospitalizedCurrently'])
             except:
                 print(state['state'], 'not found!')
-sync_data()
