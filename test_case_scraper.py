@@ -76,6 +76,13 @@ def sync_data():
             print(state['state'], state['positive'], state['negative'])
             try:
                 state_object = State.objects.filter(name__icontains=states[state['state']])[0]
-                state_object.set_positive_negative(state['positive'], state['negative'], state['hospitalizedCumulative'])
+
+                if state['hospitalizedCumulative'] == None and state['hospitalizedCurrently'] == None:
+                    state_object.set_positive_negative_hospitalized(state['positive'], state['negative'], -1)
+                    print(state['state'], 'does not have a hospitalizedCumulative value')
+                elif state['hospitalizedCumulative'] != None:    
+                    state_object.set_positive_negative_hospitalized(state['positive'], state['negative'], state['hospitalizedCumulative'])
+                elif state['hospitalizedCurrently'] != None:
+                    state_object.set_positive_negative_hospitalized(state['positive'], state['negative'], state['hospitalizedCurrently'])
             except:
                 print(state['state'], 'not found!')

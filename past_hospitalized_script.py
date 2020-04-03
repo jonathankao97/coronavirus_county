@@ -11,7 +11,7 @@ contents = requests.get('https://covidtracking.com/api/states/daily')
 list = json.loads(contents.content)
 
 date_dict = {
-	
+
 }
 
 states = {
@@ -75,7 +75,10 @@ states = {
         }
 
 def helper(initial_list, add):
-    initial_list.append(add)
+    if add is None:
+        initial_list.append(0)
+    else:
+        initial_list.append(add)
     return initial_list
 
 def next_date(month, day):
@@ -91,7 +94,7 @@ def next_date(month, day):
         if day == "29":
             month = 3
             day = 1
-        else: 
+        else:
             day = int(day)
             day += 1
     elif month == "03":
@@ -133,11 +136,29 @@ while True:
 		for item in date_dict[int(next_day)]:
 			try:
 				state_object = State.objects.filter(name=states[item["state"]])[0]
-				state_object.set_past_positive(helper(state_object.get_past_positive(), item["positive"]))
-				state_object.set_past_negative(helper(state_object.get_past_negative(), item["negative"]))
-				state_object.set_hospitalized(helper(state_object.get_hospitalized(), item["hospitalized"]))
+				if "positive" in item:
+					state_object.set_past_positive(helper(state_object.get_past_positive(), item["positive"]))
+				else:
+					state_object.set_past_positive(helper(state_object.get_past_positive(), state_object.get_past_positive()[-1]))
+				if "negative" in item:
+					state_object.set_past_negative(helper(state_object.get_past_negative(), item["negative"]))
+				else:
+					state_object.set_past_negative(helper(state_object.get_past_negative(), state_object.get_past_negative()[-1]))
+				if "hospitalizedCumulative" in item:
+					state_object.set_hospitalized(helper(state_object.get_hospitalized(), item["hospitalized"]))
+				else:
+					state_object.set_hospitalized(helper(state_object.get_hospitalized(), state_object.get_hospitalized()[-1]))
 			except:
 				print(item["state"], "NOT FOUND!")
+		for state in State.objects.all():
+			if len(state.get_hospitalized()) != length_counter:
+				state.set_hospitalized(helper(state.get_hospitalized(), state.get_hospitalized()[-1]))
+			if len(state.get_past_positive()) != length_counter:
+				state.set_past_positive(helper(state.get_past_positive(), state.get_past_positive()[-1]))
+			if len(state.get_past_negative()) != length_counter:
+				state.set_past_negative(helper(state.get_past_negative(), state.get_past_negative()[-1]))
+
+
 	else:
 		for state in State.objects.all():
 			state.set_past_positive(helper(state.get_past_positive(), 0))
