@@ -9,6 +9,7 @@ from django.core.mail import send_mail
 from coronavirus_county_stats.settings import EMAIL_HOST_USER
 from county.models import Email, State, County
 from county.views import us_state_abbrev
+from django.utils import timezone
 
 
 @shared_task(name="sync_data")
@@ -96,6 +97,7 @@ def send_emails(*args, **kwargs):
                                          'state_ranking_change': state_ranking_change,
                                          'state': email.county.state,
                                          'state_initials': us_state_abbrev[email.county.state.name],
+                                         'datetime': timezone.now(),
                                          })
         plain_message = strip_tags(html_message)
         send_mail(email.county.name + " Clear Cov-19 Report", plain_message, EMAIL_HOST_USER,
