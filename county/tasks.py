@@ -39,6 +39,9 @@ def push_data(*args, **kwargs):
     for state in State.objects.all():
         state.set_confirmed(helper(state.get_confirmed(), state.today_delta_confirmed))
         state.set_deaths(helper(state.get_deaths(), state.today_delta_deaths))
+        state.set_past_negative(helper(state.get_past_negative(), state.negative_tests))
+        state.set_past_positive(helper(state.get_past_positive(), state.positive_tests))
+        state.set_hospitalized(helper(state.get_hospitalized(), state.today_hospitalized))
 
     for county in County.objects.all():
         county.set_confirmed(helper(county.get_confirmed(), county.today_delta_confirmed))

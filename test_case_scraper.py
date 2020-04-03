@@ -5,7 +5,6 @@ import os
 import django
 from county.models import State
 
-
 def sync_data():
         os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'coronavirus_county_stats.settings')
         django.setup()
@@ -72,10 +71,11 @@ def sync_data():
                 'WY': 'Wyoming'
         }
 
+
         for state in list:
             print(state['state'], state['positive'], state['negative'])
             try:
-                State.objects.filter(name__icontains=states[state['state']])[0].set_positive_negative(state['positive'], state['negative'])
+                state_object = State.objects.filter(name__icontains=states[state['state']])[0]
+                state_object.set_positive_negative(state['positive'], state['negative'], state['hospitalizedCumulative'])
             except:
                 print(state['state'], 'not found!')
-

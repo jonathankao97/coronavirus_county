@@ -13,20 +13,27 @@ from county.models import add_city, add_county, add_state
 
 
 def parse_county(state, counter, county, dict):
-    county_info = county.find_all('span', 'jsx-742282485')
-    name = county_info[0].text  # get rid of all weird extra spaces
-    if name[-1] == ' ':
-        name = name[0:-1]
+    county_info = county.find_all('span', 'jsx-1703765630')
+    name = county_info[0].text.rstrip() # get rid of all weird extra spaces
+
     if len(county_info[1].find_all('div')) == 0:
         confirmed = county_info[1].text
     else:
         county_info[1].find_all('div')[0].decompose()
         confirmed = county_info[1].text
+
+    if len(county_info[4].find_all('div')) == 0:
+        recovered = county_info[4].text
+    else:
+        county_info[4].find_all('div')[0].decompose()
+        recovered = county_info[4].text
+
     if len(county_info[2].find_all('div')) == 0:
         deaths = county_info[2].text
     else:
         county_info[2].find_all('div')[0].decompose()
         deaths = county_info[2].text
+
     confirmed = confirmed.replace(',', '')
     deaths = deaths.replace(',', '')
     key = name + "," + state.name
@@ -35,7 +42,7 @@ def parse_county(state, counter, county, dict):
     if key in dict:
         fips_code = dict.get(key)[0][0]
         county_object = add_county(name=name, fips_code=fips_code,
-                                   confirmed=int(confirmed), deaths=int(deaths), county_ranking=counter+1, state=state)
+                                   confirmed=int(confirmed), deaths=int(deaths), recovered=recovered, county_ranking=counter+1, state=state)
         for city in dict.get(key):
             city = add_city(zip_code=city[1], name=city[2], county=county_object)
             del city
@@ -45,7 +52,7 @@ def parse_county(state, counter, county, dict):
 
 
 def parse_state(counter, state_info):
-    name = state_info[0].text
+    name = state_info[0].text.rstrip()
 
     if len(state_info[1].find_all('div')) == 0:
         confirmed = state_info[1].text
@@ -63,18 +70,18 @@ def parse_state(counter, state_info):
 
 
 def sync_data():
-    chrome_options = webdriver.ChromeOptions()
-    chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-    chrome_options.add_argument("--headless")
-    chrome_options.add_argument("--disable-dev-shm-usage")
-    chrome_options.add_argument("--no-sandbox")
+    # chrome_options = webdriver.ChromeOptions()
+    # chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+    # chrome_options.add_argument("--headless")
+    # chrome_options.add_argument("--disable-dev-shm-usage")
+    # chrome_options.add_argument("--no-sandbox")
 
-    browser = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
-    browser.get('https://coronavirus.1point3acres.com/en')
-
-    # browser = webdriver.Chrome('/Users/jkao97/downloads/chromedriver')
-    # # # browser = webdriver.Chrome('/Users/JonKao/downloads/chromedriver')
+    # browser = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
     # browser.get('https://coronavirus.1point3acres.com/en')
+
+    browser = webdriver.Chrome('/Users/jkao97/downloads/chromedriver')
+    # # # browser = webdriver.Chrome('/Users/JonKao/downloads/chromedriver')
+    browser.get('https://coronavirus.1point3acres.com/en')
 
     # print(browser.page_source)
 
@@ -83,30 +90,51 @@ def sync_data():
     with open('dict.json', 'r') as file:
         dict = json.loads(file.readline())
 
+    print(dict)
+
     counter = 0
-    for state in browser.find_elements_by_xpath("//div[(@class = 'jsx-742282485')]"):
-        if state.get_attribute("class") == 'jsx-742282485':
+    for state in browser.find_elements_by_xpath("//div[(@class = 'jsx-1703765630')]"):
+        print(state.get_attribute("class"))
+        print(state.text)
+        if state.get_attribute("class") == 'jsx-1703765630' and state.get_attribute('innerHTML')[0] == "<":
             counter = 0
             try:
                 print("trying")
                 state.click()
+                # print(state.get_attribute('innerHTML'))
+                # span = state.get_attribute('span')    
+                # span.click()
+                # action = webdriver.common.action_chains.ActionChains(browser)
+                # action.move_to_element_with_offset(state, 0, 0)
+                # action.click()
+                # action.perform()
             except:
                 print("failing", counter)
                 counter += 1
                 browser.execute_script('scrollBy(0, 100)')
                 state.click()
+                # print(state.get_attribute('innerHTML'))
+                # action = webdriver.common.action_chains.ActionChains(browser)
+                # action.move_to_element_with_offset(state, 0, 0)
+                # action.click()
+                # action.perform()
+                # span = state.get_attribute('span')
+                # span.click()
+
+                # state.('span').click()
     soup = BeautifulSoup(browser.page_source, "lxml")
     for index, state in enumerate(soup.find_all(lambda tag: tag.name == 'div' and
-                                       tag.get('class') == ['jsx-742282485'])):
-        state_info = state.find('div', 'jsx-742282485 stat row expand').find_all('span', 'jsx-742282485')
-        state_object = parse_state(index, state_info)  # add state
-        counties_list = state.find('div', 'jsx-742282485 counties')
-        for index2, county in enumerate(counties_list.find_all('div', 'jsx-742282485 row')):
-            parse_county(state_object, index2, county, dict)  # add all counties/cities
+                                       tag.get('class') == ['jsx-1703765630'])):
+        if state.find('div', 'jsx-1703765630 stat row expand'):
+            state_info = state.find('div', 'jsx-1703765630 stat row expand').find_all('span', 'jsx-1703765630')
+            state_object = parse_state(index, state_info)  # add state
+            counties_list = state.find('div', 'jsx-1703765630 counties')
+            for index2, county in enumerate(counties_list.find_all('div', 'jsx-1703765630 row')):
+                parse_county(state_object, index2, county, dict)  # add all counties/cities
 
-        del state_object
-        del state_info
-        del counties_list
+            del state_object
+            del state_info
+            del counties_list
 
     browser.close()
     browser.quit()
