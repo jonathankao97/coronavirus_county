@@ -114,11 +114,25 @@ def hello(request):
 def data(request, county_id):
     sups = ["aux", "st", "nd", "rd", "th"]
     county = County.objects.get(id=county_id)
+
     confirmed = county.get_confirmed()
     confirmed.append(county.today_delta_confirmed)
     print(confirmed)
     beg = max(0, len(confirmed) - 90)
     confirmed = confirmed[beg:]
+
+    hospitalized_hist = county.state.get_hospitalized()
+    hospitalized_hist.append(county.state.today_hospitalized)
+    hospitalized_hist = hospitalized_hist[beg:]
+
+    positive_hist = county.state.get_past_positive()
+    positive_hist.append(county.state.positive_tests)
+    positive_hist = positive_hist[beg:]
+
+    negative_hist = county.state.get_past_negative()
+    negative_hist.append(county.state.negative_tests)
+    negative_hist = negative_hist[beg:]
+
     deltas = [1, 7, 30]
     confirmed_deltas = []
     deaths_deltas = []
@@ -146,6 +160,7 @@ def data(request, county_id):
         deaths_increase = int(float(deaths_deltas[0] * 100) / deaths[-2])
     county_rank = int(county.get_state_county_ranking()[-1])
     state_rank = int(county.state.get_state_ranking()[-1])
+
     context = {
         'confirmed': confirmed,
         'current_confirmed': county.today_delta_confirmed,
@@ -167,16 +182,30 @@ def data(request, county_id):
         'positive': county.state.positive_tests,
         'negative': county.state.negative_tests,
         'state': county.state,
+        'recovered': county.recovered,
+        'positive_hist': positive_hist,
+        'negative_hist': negative_hist,
+        'hospitalized_hist': hospitalized_hist,
         'x_axis': [],
         'is_vis': 'd-none',
         'is_data': True,
+        'hospital': 1,
     }
+    if county.state.today_hospitalized == -1:
+        context['hospitalized'] = "n/a"
+        context['hospital'] = 0
+    else:
+        context['hospitalized'] = county.state.today_hospitalized
+
+    if hospitalized_hist[-2] != 0:
+        context['hospital_increase'] = int((hospitalized_hist[-1] - hospitalized_hist[-2]) * 100 / hospitalized_hist[-2])
+    else:
+        context['hospital_increase'] = 0
     now = timezone.localtime(timezone.now())
     for i in range(0, min(len(confirmed), 90)):
         context['x_axis'].append(now.strftime('%-m/%-d'))
         now -= timedelta(1)
     context['x_axis'].reverse()
-    print(context['log_confirmed'])
     print(context)
     return render(request, 'county_data.html', context)
 

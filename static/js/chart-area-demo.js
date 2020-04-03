@@ -27,6 +27,7 @@ function number_format(number, decimals, dec_point, thousands_sep) {
 }
 var myLineChart
 var myOtherLineChart
+var myHospitalChart
 // Area Chart Example
 function make_charts(slice, log=false, toggle_log=false){
 if (slice==7){
@@ -130,7 +131,6 @@ myLineChart = new Chart(canvas, {
   }
 });
 } else {
-console.log("hi")
 myLineChart = new Chart(canvas, {
   type: 'line',
   data: {
@@ -227,6 +227,237 @@ myLineChart = new Chart(canvas, {
 });
 }
 if(!toggle_log){
+if (myHospitalChart){
+myHospitalChart.destroy();
+}
+var canvas2 = document.getElementById("myHospitalChart");
+canvas2.height=225;
+c_positive = "126, 59, 154"
+c_negative = "75, 75, 75"
+c_hospitalized = "255, 255, 255"
+if (hospital){
+myHospitalChart = new Chart(canvas2, {
+  type: 'line',
+  data: {
+    labels: x_axis.slice(beg),
+    datasets: [
+    {
+      label: "Negative",
+      lineTension: 0,
+      backgroundColor: "rgba(78, 115, 223, 0.05)",
+      borderColor: "rgba("+ c_negative +", 0.8)",
+      pointRadius: rad,
+      pointBackgroundColor: "rgba("+ c_negative +", .8)",
+      pointBorderColor: "rgba("+ c_negative +", 0)",
+      pointHoverRadius: rad-1,
+      pointHoverBackgroundColor: "rgba("+ c_negative +", .8)",
+      pointHoverBorderColor: "rgba("+ c_negative +", 0)",
+      pointHitRadius: 10,
+      pointBorderWidth: 2,
+      data: negative_hist.slice(beg),
+    },
+    {
+      label: "Positive",
+      lineTension: 0,
+      backgroundColor: "rgba(78, 115, 223, 0.05)",
+      borderColor: "rgba("+ c_positive +", 0.8)",
+      pointRadius: rad,
+      pointBackgroundColor: "rgba("+ c_positive +", 0.8)",
+      pointBorderColor: "rgba("+ c_positive +", 0)",
+      pointHoverRadius: rad-1,
+      pointHoverBackgroundColor: "rgba("+ c_positive +", 0.8)",
+      pointHoverBorderColor: "rgba("+ c_positive +", 0)",
+      pointHitRadius: 10,
+      pointBorderWidth: 2,
+      data: positive_hist.slice(beg),
+    },
+    {
+      label: "Hospitalized",
+      lineTension: 0,
+      backgroundColor: "rgba(78, 115, 223, 0.05)",
+      borderColor: "rgba("+ c_hospitalized +", 0.8)",
+      pointRadius: rad,
+      pointBackgroundColor: "rgba("+ c_hospitalized + ", 0.8)",
+      pointBorderColor: "rgba("+ c_hospitalized +", 0)",
+      pointHoverRadius: rad-1,
+      pointHoverBackgroundColor: "rgba("+ c_hospitalized + ", 0.8)",
+      pointHoverBorderColor: "rgba("+ c_hospitalized +", 0)",
+      pointHitRadius: 10,
+      pointBorderWidth: 2,
+      data: hospitalized_hist.slice(beg),
+    }],
+  },
+  options: {
+    maintainAspectRatio: false,
+    layout: {
+      padding: {
+        left: 10,
+        right: 25,
+        top: 5,
+        bottom: 0
+      }
+    },
+    scales: {
+      xAxes: [{
+        time: {
+          unit: 'date'
+        },
+        gridLines: {
+          display: false,
+          drawBorder: false
+        },
+        ticks: {
+          maxTicksLimit: 7,
+          fontSize: 13,
+          fontFamily: "Helvetica"
+        }
+      }],
+      yAxes: [{
+
+        ticks: {
+          precision: 0,
+          padding: 20,
+          min: 0,
+         },
+          // Include a dollar sign in the ticks
+        gridLines: {
+          color: "rgba(255, 255, 255, 0.4)",
+          zeroLineColor: "rgba(255, 255, 255, 0.4)",
+          drawBorder: false,
+          borderDash: [2],
+          zeroLineBorderDash: [2]
+        },
+      }],
+    },
+    legend: {
+      display: false
+    },
+    tooltips: {
+      backgroundColor: "rgb(255,255,255)",
+      bodyFontColor: "#858796",
+      titleMarginBottom: 10,
+      titleFontColor: '#6e707e',
+      titleFontSize: 14,
+      borderColor: '#dddfeb',
+      borderWidth: 1,
+      xPadding: 15,
+      yPadding: 15,
+      displayColors: false,
+      intersect: false,
+      mode: 'index',
+      caretPadding: 10,
+      callbacks: {
+      }
+    }
+  }
+});
+} else {
+myHospitalChart = new Chart(canvas2, {
+  type: 'line',
+  data: {
+    labels: x_axis.slice(beg),
+    datasets: [
+    {
+      label: "Negative",
+      lineTension: 0,
+      backgroundColor: "rgba(78, 115, 223, 0.05)",
+      borderColor: "rgba("+ c_negative +", 0.8)",
+      pointRadius: rad,
+      pointBackgroundColor: "rgba("+ c_negative +", .8)",
+      pointBorderColor: "rgba("+ c_negative +", 0)",
+      pointHoverRadius: rad-1,
+      pointHoverBackgroundColor: "rgba("+ c_negative +", .8)",
+      pointHoverBorderColor: "rgba("+ c_negative +", 0)",
+      pointHitRadius: 10,
+      pointBorderWidth: 2,
+      data: negative_hist.slice(beg),
+    },
+    {
+      label: "Positive",
+      lineTension: 0,
+      backgroundColor: "rgba(78, 115, 223, 0.05)",
+      borderColor: "rgba("+ c_positive +", 0.8)",
+      pointRadius: rad,
+      pointBackgroundColor: "rgba("+ c_positive +", 0.8)",
+      pointBorderColor: "rgba("+ c_positive +", 0)",
+      pointHoverRadius: rad-1,
+      pointHoverBackgroundColor: "rgba("+ c_positive +", 0.8)",
+      pointHoverBorderColor: "rgba("+ c_positive +", 0)",
+      pointHitRadius: 10,
+      pointBorderWidth: 2,
+      data: positive_hist.slice(beg),
+    }],
+  },
+  options: {
+    maintainAspectRatio: false,
+    layout: {
+      padding: {
+        left: 10,
+        right: 25,
+        top: 5,
+        bottom: 0
+      }
+    },
+    scales: {
+      xAxes: [{
+        time: {
+          unit: 'date'
+        },
+        gridLines: {
+          display: false,
+          drawBorder: false
+        },
+        ticks: {
+          maxTicksLimit: 7,
+          fontSize: 13,
+          fontFamily: "Helvetica"
+        }
+      }],
+      yAxes: [{
+
+        ticks: {
+          precision: 0,
+          padding: 20,
+          min: 0,
+         },
+          // Include a dollar sign in the ticks
+        gridLines: {
+          color: "rgba(255, 255, 255, 0.4)",
+          zeroLineColor: "rgba(255, 255, 255, 0.4)",
+          drawBorder: false,
+          borderDash: [2],
+          zeroLineBorderDash: [2]
+        },
+      }],
+    },
+    legend: {
+      display: true,
+      labels: {
+      usePointStyle: true,
+      boxWidth: 2,
+    }
+    },
+    tooltips: {
+      backgroundColor: "rgb(255,255,255)",
+      bodyFontColor: "#858796",
+      titleMarginBottom: 10,
+      titleFontColor: '#6e707e',
+      titleFontSize: 14,
+      borderColor: '#dddfeb',
+      borderWidth: 1,
+      xPadding: 15,
+      yPadding: 15,
+      displayColors: false,
+      intersect: false,
+      mode: 'index',
+      caretPadding: 10,
+      callbacks: {
+      }
+    }
+  }
+});
+}
+
 if (myOtherLineChart){
 myOtherLineChart.destroy();
 }
@@ -317,7 +548,7 @@ myOtherLineChart = new Chart(canvas1, {
   }
 });
 }
-
 }
+
 
 make_charts(7)

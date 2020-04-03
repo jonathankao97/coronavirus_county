@@ -100,7 +100,7 @@ body.modal-open[style] {
         </div>
     </div>
     <div class="row p-0">
-        <div class="order-1 order-xl-1 col-xl-4 col-lg-6 col-md-6 col-sm-6 ">
+        <div class="order-1 order-xl-1 col-xl-3 col-lg-6 col-md-6 col-sm-6 ">
             <div class="card card-stats">
                 <div class="card-header card-header-success card-header-icon">
                     <div class="card-icon">
@@ -138,7 +138,7 @@ body.modal-open[style] {
                 </div>
             </div>
         </div>
-        <div class="order-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 mt-0">
+        <div class="order-2 col-xl-3 col-lg-6 col-md-6 col-sm-6 mt-0">
             <div class="card card-stats">
                 <div class="card-header card-header-danger card-header-icon">
                     <div class="card-icon">
@@ -177,7 +177,56 @@ body.modal-open[style] {
                 </div>
             </div>
         </div>
-        <div class="order-6 order-xl-3 col-xl-4 col-lg-6 col-md-6 col-sm-6">
+        <div class="order-3 col-xl-3 col-lg-6 col-md-6 col-sm-6">
+            <div class="card card-stats">
+                <div class="card-header card-header-primary card-header-icon">
+                    <div class="card-icon">
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <p class="card-category">Positive Tests in {{ state.name }}</p>
+                    <h3 class="card-title text-white">{{ positive }}</h3>
+                </div>
+                <div class="card-footer">
+                    <div class="stats small">
+                        <i class="material-icons">flag</i> In {{ state.name }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="order-4 col-xl-3 col-lg-6 col-md-6 col-sm-6">
+            <div class="card card-stats">
+                <div class="card-header card-header-secondary card-header-icon">
+                    <div class="card-icon">
+                        <i class="fas fa-minus"></i>
+                    </div>
+                    <p class="card-category">Negative Tests in {{ state.name }}</p>
+                    <h3 class="card-title text-white">{{ negative }}</h3>
+                </div>
+                <div class="card-footer">
+                    <div class="stats small">
+                        <i class="material-icons">flag</i> In {{ state.name }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="order-5 col-xl-3 col-lg-6 col-md-6 col-sm-6">
+            <div class="card card-stats">
+                <div class="card-header card-header-warning card-header-icon">
+                    <div class="card-icon">
+                        <i class="fas fa-flag-usa"></i>
+                    </div>
+                    <p class="card-category"><strong>{{ state.name }} </strong> severity</p>
+                    <h3 class="card-title text-white">{{ state_rank }}<sup>{{ state_rank_sup }}</sup><sub
+                            class="text-secondary"> / 50</sub></h3>
+                </div>
+                <div class="card-footer">
+                    <div class="stats small">
+                        <i class="material-icons">flag</i> In the USA
+                    </div>
+                </div>
+            </div>
+        </div>
+         <div class="order-6 col-xl-3 col-lg-6 col-md-6 col-sm-6">
             <div class="card card-stats">
                 <div class="card-header card-header-warning card-header-icon">
                     <div class="card-icon">
@@ -194,51 +243,34 @@ body.modal-open[style] {
                 </div>
             </div>
         </div>
-        <div class="order-3 order-xl-4 col-xl-4 col-lg-6 col-md-6 col-sm-6">
-            <div class="card card-stats">
-                <div class="card-header card-header-primary card-header-icon">
-                    <div class="card-icon">
-                        <i class="fas fa-plus"></i>
-                    </div>
-                    <p class="card-category">Positive Tests in {{ state.name }}</p>
-                    <h3 class="card-title text-white">{{ positive }}</h3>
-                </div>
-                <div class="card-footer">
-                    <div class="stats small">
-                        <i class="material-icons">flag</i> In {{ state.name }}
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="order-4 order-4 order-xl-5 col-xl-4 col-lg-6 col-md-6 col-sm-6">
-            <div class="card card-stats">
-                <div class="card-header card-header-secondary card-header-icon">
-                    <div class="card-icon">
-                        <i class="fas fa-minus"></i>
-                    </div>
-                    <p class="card-category">Negative Tests in {{ state.name }}</p>
-                    <h3 class="card-title text-white">{{ negative }}</h3>
-                </div>
-                <div class="card-footer">
-                    <div class="stats small">
-                        <i class="material-icons">flag</i> In {{ state.name }}
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="order-5 order-xl-6 col-xl-4 col-lg-6 col-md-6 col-sm-6">
+        <div class="order-7 col-xl-3 col-lg-6 col-md-6 col-sm-6">
             <div class="card card-stats">
                 <div class="card-header card-header-info card-header-icon">
                     <div class="card-icon">
-                        <i class="fas fa-flag-usa"></i>
+                        <i class="fas fa-bed"></i>
                     </div>
-                    <p class="card-category"><strong>{{ state.name }} </strong> severity</p>
-                    <h3 class="card-title text-white">{{ state_rank }}<sup>{{ state_rank_sup }}</sup><sub
-                            class="text-secondary"> / 50</sub></h3>
+                    <p class="card-category">Hospitalizations in {{ county.state.name }}</p>
+                    <h3 class="card-title text-white">{{ hospitalized }}</h3>
                 </div>
                 <div class="card-footer">
                     <div class="stats small">
-                        <i class="material-icons">flag</i> In the USA
+                        <i class="material-icons">flag</i> In {{ state.name }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="order-8 col-xl-3 col-lg-6 col-md-6 col-sm-6">
+            <div class="card card-stats">
+                <div class="card-header card-header-info card-header-icon">
+                    <div class="card-icon">
+                        <i class="fas fa-child"></i>
+                    </div>
+                    <p class="card-category">Recovered in {{ county.name }}</p>
+                    <h3 class="card-title text-white">{{ recovered }}</h3>
+                </div>
+                <div class="card-footer">
+                    <div class="stats small">
+                        <i class="material-icons">flag</i> In {{ county.name }}
                     </div>
                 </div>
             </div>
@@ -313,6 +345,27 @@ body.modal-open[style] {
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card card-chart">
+                            <div class="card-header card-header-info">
+                                <canvas id="myHospitalChart"></canvas>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-title">Hospitalized</h4>
+                                <p class="card-category">
+                                <span class="text-info"><i
+                                        class="fa fa-long-arrow-up"></i> {{ hospital_increase }} % </span>
+                                    in hospitalizations today</p>
+                            </div>
+                            <div class="card-footer">
+                                <div class="stats">
+                                    <i class="material-icons">access_time</i> updated 2 hours ago
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="card-footer pt-0">
                     <div class="stats pt-0 mx-auto">
                         <i class="material-icons text-danger">warning</i>
@@ -332,6 +385,10 @@ body.modal-open[style] {
     var deaths = {{ deaths }}
     var deaths_deltas = {{ deaths_deltas | safe}}
     var x_axis = {{ x_axis | safe}}
+    var hospital = {{ hospital }}
+    var positive_hist = {{ positive_hist | safe}}
+    var negative_hist = {{ negative_hist | safe }}
+    var hospitalized_hist = {{ hospitalized_hist | safe }}
 
     function showNotification(e,a){
     $.notify({icon:"add_alert",
