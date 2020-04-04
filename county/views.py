@@ -158,7 +158,7 @@ def data(request, county_id):
     deaths_increase = 0
     if len(deaths) >= 2 and deaths[-2] != 0:
         deaths_increase = int(float(deaths_deltas[0] * 100) / deaths[-2])
-    if len(county.get_state_county_ranking()[-1]) > 0:
+    if len(county.get_state_county_ranking()) > 0:
         county_rank = int(county.get_state_county_ranking()[-1])
     else:
         county_rank = 'n/a'
@@ -176,7 +176,7 @@ def data(request, county_id):
         'deaths_deltas': deaths_deltas,
         'death_increase': deaths_increase,
         'county_rank': county_rank,
-        'county_rank_sup': sups[min(4, county_rank)],
+        'county_rank_sup': sups[min(4, county_rank)] if county_rank != 'n/a' else '',
         'state_rank': state_rank,
         'state_rank_sup': sups[min(4, state_rank)],
         'state_total_counties': len(County.objects.filter(state=county.state)),
