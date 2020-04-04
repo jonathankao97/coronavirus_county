@@ -158,7 +158,10 @@ def data(request, county_id):
     deaths_increase = 0
     if len(deaths) >= 2 and deaths[-2] != 0:
         deaths_increase = int(float(deaths_deltas[0] * 100) / deaths[-2])
-    county_rank = int(county.get_state_county_ranking()[-1])
+    if len(county.get_state_county_ranking()[-1]) > 0:
+        county_rank = int(county.get_state_county_ranking()[-1])
+    else:
+        county_rank = 'n/a'
     state_rank = int(county.state.get_state_ranking()[-1])
 
     context = {
