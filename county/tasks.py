@@ -1,8 +1,6 @@
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
-from celery import task
 from celery import shared_task
-import os
 from scraper import sync_data as confirmed_sync
 from test_case_scraper import sync_data as test_sync
 from django.core.mail import send_mail
@@ -100,6 +98,7 @@ def send_emails(*args, **kwargs):
                                          'datetime': timezone.now(),
                                          })
         plain_message = strip_tags(html_message)
-        send_mail(email.county.name + " Clear Cov-19 Report", plain_message, EMAIL_HOST_USER,
+        send_mail(email.county.name + " Clear Cov-19 Report", plain_message, 'updates@clearcov19.com',
                   [email.email], html_message=html_message)
+
 

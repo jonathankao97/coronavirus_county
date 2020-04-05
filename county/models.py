@@ -35,7 +35,11 @@ class City(models.Model):
 
 def add_city(zip_code, name, county):
     print("GET OR CREATE", name)
-    return City.objects.get_or_create(zip_code=zip_code, name=name, county=county)[0]
+    try:
+        return City.objects.get_or_create(zip_code=zip_code, name=name, county=county)[0]
+    except:
+        print("BROKEN", name, zip_code, county)
+        return City.objects.get_or_create(zip_code=zip_code, name=name, county=county)[0]
 
 
 class County(models.Model):

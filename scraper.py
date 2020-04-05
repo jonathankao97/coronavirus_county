@@ -101,27 +101,11 @@ def sync_data():
             try:
                 print("trying")
                 state.click()
-                # print(state.get_attribute('innerHTML'))
-                # span = state.get_attribute('span')    
-                # span.click()
-                # action = webdriver.common.action_chains.ActionChains(browser)
-                # action.move_to_element_with_offset(state, 0, 0)
-                # action.click()
-                # action.perform()
             except:
                 print("failing", counter)
                 counter += 1
                 browser.execute_script('scrollBy(0, 100)')
                 state.click()
-                # print(state.get_attribute('innerHTML'))
-                # action = webdriver.common.action_chains.ActionChains(browser)
-                # action.move_to_element_with_offset(state, 0, 0)
-                # action.click()
-                # action.perform()
-                # span = state.get_attribute('span')
-                # span.click()
-
-                # state.('span').click()
     soup = BeautifulSoup(browser.page_source, "lxml")
     for index, state in enumerate(soup.find_all(lambda tag: tag.name == 'div' and
                                        tag.get('class') == ['jsx-1703765630'])):
@@ -139,5 +123,5 @@ def sync_data():
     browser.close()
     browser.quit()
 
-
-sync_data()
+if __name__ == "__main__":
+    sync_data()

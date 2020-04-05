@@ -52,6 +52,9 @@ INSTALLED_APPS = [
 ]
 
 SECURE_SSL_REDIRECT = True
+# SESSION_COOKIE_SECURE = False
+# CSRF_COOKIE_SECURE = False
+# SECURE_SSL_REDIRECT = False
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -153,13 +156,13 @@ CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.mailgun.org'
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_USE_SSL = False
+
 
 django_heroku.settings(locals())
 
