@@ -50,55 +50,56 @@ def push_data(*args, **kwargs):
 @shared_task(name="send_emails")
 def send_emails(*args, **kwargs):
     for email in Email.objects.all():
-        confirmed_list = email.county.get_confirmed()
-        deaths_list = email.county.get_deaths()
-        sups = ["aux", "st", "nd", "rd", "th"]
+        if email.is_subscribed:
+            confirmed_list = email.county.get_confirmed()
+            deaths_list = email.county.get_deaths()
+            sups = ["aux", "st", "nd", "rd", "th"]
 
-        if len(confirmed_list) <= 1:
-            confirmed_change = confirmed_list[0]
-        else:
-            confirmed_change = confirmed_list[-1] - confirmed_list[-2]
+            if len(confirmed_list) <= 1:
+                confirmed_change = confirmed_list[0]
+            else:
+                confirmed_change = confirmed_list[-1] - confirmed_list[-2]
 
-        if len(deaths_list) <= 1:
-            deaths_change = deaths_list[0]
-        else:
-            deaths_change = deaths_list[-1] - deaths_list[-2]
+            if len(deaths_list) <= 1:
+                deaths_change = deaths_list[0]
+            else:
+                deaths_change = deaths_list[-1] - deaths_list[-2]
 
-        county_ranking_list = email.county.get_state_county_ranking()
-        state_ranking_list = email.county.state.get_state_ranking()
-        if len(county_ranking_list) <= 1:
-            county_ranking_change = county_ranking_list[0]
-        else:
-            county_ranking_change = county_ranking_list[-1] - county_ranking_list[-2]
+            county_ranking_list = email.county.get_state_county_ranking()
+            state_ranking_list = email.county.state.get_state_ranking()
+            if len(county_ranking_list) <= 1:
+                county_ranking_change = county_ranking_list[0]
+            else:
+                county_ranking_change = county_ranking_list[-1] - county_ranking_list[-2]
 
-        if len(state_ranking_list) <= 1:
-            state_ranking_change = state_ranking_list[0]
-        else:
-            state_ranking_change = state_ranking_list[-1] - state_ranking_list[-2]
+            if len(state_ranking_list) <= 1:
+                state_ranking_change = state_ranking_list[0]
+            else:
+                state_ranking_change = state_ranking_list[-1] - state_ranking_list[-2]
 
 
 
-        html_message = render_to_string('email_template.html',
-                                        {'county': email.county,
-                                         'confirmed': confirmed_list[-1],
-                                         'deaths': deaths_list[-1],
-                                         'confirmed_change': confirmed_change,
-                                         'deaths_change': deaths_change,
-                                         'county_ranking': county_ranking_list[-1],
-                                         'county_rank_sup': sups[min(4, county_ranking_list[-1])],
-                                         'state_ranking': state_ranking_list[-1],
-                                         'total_counties': len(County.objects.filter(state=email.county.state)),
-                                         'positive': email.county.state.positive_tests,
-                                         'negative': email.county.state.negative_tests,
-                                         'state_rank_sup': sups[min(4, state_ranking_list[-1])],
-                                         'county_ranking_change': county_ranking_change,
-                                         'state_ranking_change': state_ranking_change,
-                                         'state': email.county.state,
-                                         'state_initials': us_state_abbrev[email.county.state.name],
-                                         'datetime': timezone.now(),
-                                         })
-        plain_message = strip_tags(html_message)
-        send_mail(email.county.name + " Clear Cov-19 Report", plain_message, 'updates@clearcov19.com',
-                  [email.email], html_message=html_message)
+            html_message = render_to_string('email_template.html',
+                                            {'county': email.county,
+                                             'confirmed': confirmed_list[-1],
+                                             'deaths': deaths_list[-1],
+                                             'confirmed_change': confirmed_change,
+                                             'deaths_change': deaths_change,
+                                             'county_ranking': county_ranking_list[-1],
+                                             'county_rank_sup': sups[min(4, county_ranking_list[-1])],
+                                             'state_ranking': state_ranking_list[-1],
+                                             'total_counties': len(County.objects.filter(state=email.county.state)),
+                                             'positive': email.county.state.positive_tests,
+                                             'negative': email.county.state.negative_tests,
+                                             'state_rank_sup': sups[min(4, state_ranking_list[-1])],
+                                             'county_ranking_change': county_ranking_change,
+                                             'state_ranking_change': state_ranking_change,
+                                             'state': email.county.state,
+                                             'state_initials': us_state_abbrev[email.county.state.name],
+                                             'datetime': timezone.now(),
+                                             })
+            plain_message = strip_tags(html_message)
+            send_mail(email.county.name + " Clear Cov-19 Report", plain_message, 'updates@clearcov19.com',
+                      [email.email], html_message=html_message)
 
 
