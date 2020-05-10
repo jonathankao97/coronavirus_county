@@ -6,9 +6,10 @@ def main():
     for county in County.objects.all():
         if len(county.get_confirmed()) != 0:
             county.today_delta_confirmed = county.get_confirmed()[-1]
+        if len(county.get_deaths()) != 0:
             county.today_delta_deaths = county.get_deaths()[-1]
-            print(county.name, 'updated')
-            county.save()
+        print(county.name, 'updated')
+        county.save()
 
 
 
